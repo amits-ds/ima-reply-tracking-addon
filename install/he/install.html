@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>התקנת מעקב תשובות הר"י</title>
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<main>
+  <div class="top">
+    <nav aria-label="עמודים">
+      <a href="about.html">על הפרויקט</a>
+      <a href="data.html">המידע שלכם</a>
+      <a href="install.html" aria-current="page">התקנה</a>
+      <a href="guide.html">איך משתמשים</a>
+    </nav>
+    <a class="lang" href="../en/install.html" hreflang="en" lang="en">English</a>
+  </div>
+
+  <!-- מהדורת פיילוט: להסיר את הבאנר לקראת ההשקה הכללית -->
+  <p class="banner"><b>מהדורת פיילוט.</b> אם משהו בעמוד לא ברור או לא תואם את מה שאתם רואים, זה בדיוק המשוב שאנחנו צריכים.</p>
+
+  <h1>התקנת התוסף</h1>
+  <p class="lead">כ-10–15 דקות, במחשב, פעם אחת. מדביקים פקודה אחת, מתחברים לגוגל, ואז עושים שתי לחיצות שגוגל מחייבת לעשות בעצמכם.</p>
+
+  <div id="video" class="vids">
+    <figure><figcaption>Windows</figcaption><video controls preload="none" poster="../video/install-win-he.jpg"><source src="../video/install-win-he.mp4" type="video/mp4"></video></figure>
+    <figure><figcaption>Mac</figcaption><video controls preload="none" poster="../video/install-mac-he.jpg"><source src="../video/install-mac-he.mp4" type="video/mp4"></video></figure>
+    <p class="muted">כל השלבים שבעמוד, על המסך, בפחות משלוש דקות, עם קריינות וכתוביות. החשבון, הקוד והשמות הם לדוגמה.</p>
+  </div>
+
+  <h2 id="before">לפני שמתחילים</h2>
+  <ul>
+    <li><b>מחשב Windows או Mac</b> עם Chrome או Edge. גם ההתקנה וגם השימוש בתוסף נעשים במחשב: דפדפן בטלפון לא מציג תוספים, ואפליקציית Gmail בטלפון מציגה לכל היותר כרטיס קטן ליד מייל פתוח.</li>
+    <li><b>חשבון ה-Gmail שממנו אתם כותבים להר"י</b>. אם יש לכם כמה חשבונות, השתמשו בו בכל השלבים.</li>
+    <li><b>פקודת ההתקנה</b> שהקבוצה שיתפה איתכם (אותה פקודה לכולם; אין קוד אישי).</li>
+    <li>כדאי לקרוא קודם את <a href="data.html">המידע שלכם</a>: שם מוסבר מה התוסף שולח ומה לא.</li>
+  </ul>
+
+  <h2 id="installer">שלב 1: הרצת תוכנת ההתקנה</h2>
+  <ol>
+    <li><b>פתחו חלון פקודות.</b> ב-Windows: לחצו על התחל, הקלידו <code>PowerShell</code> ופתחו אותו. ב-Mac: לחצו <span class="ltr">⌘</span>+רווח, הקלידו <code>Terminal</code> ופתחו אותו.</li>
+    <li><b>הדביקו את פקודת ההתקנה</b> בחלון הזה ולחצו Enter. העתיקו את כל הפקודה, בדיוק כמו שהיא.</li>
+    <li><b>התחברו לגוגל.</b> נפתח חלון בדפדפן. בחרו את חשבון ה-Gmail שממנו אתם כותבים להר"י. גוגל מציגה מסך של כלי בשם <b>clasp</b> עם תשע הרשאות: השאירו את כולן מסומנות ולחצו Allow.
+      <div class="note">clasp הוא כלי של גוגל ליצירת פרויקטים של Apps Script. תוכנת ההתקנה משתמשת בו רק כדי ליצור את העותק שלכם של התוסף, ומבטלת את ההתחברות בסוף. היא לא קוראת את הדואר שלכם. <a href="#what-it-does">מה תוכנת ההתקנה עושה</a></div>
+    </li>
+    <li><b>רק בחשבון חדש:</b> נפתח עמוד שמבקש להפעיל את <b>Google Apps Script API</b>. הפעילו וחזרו לחלון הפקודות. לפעמים לוקח לגוגל כמה דקות לזהות את השינוי; תוכנת ההתקנה ממשיכה לנסות בעצמה.</li>
+    <li>כשתוכנת ההתקנה כותבת <code>Done</code>, היא פותחת בדפדפן את פרויקט התוסף החדש שלכם. אפשר לסגור את חלון הפקודות.</li>
+  </ol>
+  <p class="muted">גוגל תשלח לכם מייל בנוסח "You allowed clasp access…", ומאוחר יותר הודעה דומה על העותק שלכם. שתיהן רגילות.</p>
+
+  <h2 id="last-clicks">שלב 2: שתי הלחיצות שגוגל מחייבת</h2>
+  <ol>
+    <li><b>התקנה.</b> בעמוד הפרויקט שנפתח: לחצו על הכפתור הכחול <b>Deploy</b>, אחר כך <b>Test deployments</b>, ואז <b>Install</b>. אם נפתח חלון קטן, המתינו כמה שניות עד שייטען.</li>
+    <li><b>אישור.</b> פתחו את Gmail ולחצו F5 לרענון. פתחו מייל כלשהו ולחצו על סמל התוסף החדש בחלונית שבצד. לחצו <b>Authorize access</b> ובחרו את החשבון שלכם.
+      <ul>
+        <li>גוגל תציג "Google hasn't verified this app". זה צפוי: זה העותק האישי שלכם, לא אפליקציה מחנות. לחצו <b>Advanced</b>, ואז <b>Go to … (unsafe)</b>.</li>
+        <li>לחצו <b>Allow</b>. <a href="data.html#permissions">למה משמשת כל הרשאה</a></li>
+      </ul>
+    </li>
+  </ol>
+  <p class="muted">אם החלונית נשארת ריקה אחרי האישור: פתחו את התפריט (⋮) בראש החלונית ובחרו Refresh, או רעננו את Gmail (F5).</p>
+
+  <h2 id="first-run">שלב 3: מסכי הפתיחה</h2>
+  <p>בפעם הראשונה שפותחים את התוסף, הוא שואל ארבעה דברים קצרים. בשלבים שהם רשות יש כפתור <b class="ui" data-key="btn.skip2">דילוג</b>.</p>
+  <ol>
+    <li><b>שפה והשם שלכם.</b> השם משמש רק לחתימה במיילים שתכתבו דרך התוסף.</li>
+    <li><b class="ui" data-key="profile.header">קצת עליכם (רשות)</b>: שלב בקריירה, תחום, מקום עבודה. בכל שאלה אפשר לבחור "לא רוצה לציין". <a href="data.html#profile">למה אנחנו שואלים</a></li>
+    <li><b class="ui" data-key="wel.aiTitle">הצעות Gemini (רשות)</b>. בזמן הפיילוט אנחנו ממליצים <b>לדלג</b> על השלב הזה. <a href="#gemini">עוד</a></li>
+    <li><b class="ui" data-key="wel.histTitle">ההיסטוריה שלכם</b>. אם זו ההתקנה הראשונה שלכם, לחצו <b class="ui" data-key="wel.fresh">זו הפעם הראשונה שלי</b>. אם השתמשתם בתוסף בעבר, לחצו <b class="ui" data-key="wel.restore">שחזור ההיסטוריה שלי</b>.</li>
+  </ol>
+  <p>זהו. מעכשיו התוסף בודק את תיבת הדואר פעם ביום בעצמו. הבא: <a href="guide.html">איך משתמשים</a>.</p>
+
+  <h2>עוד</h2>
+
+  <details id="gemini">
+    <summary>הוספת מפתח Gemini (רשות)</summary>
+    <p>התוסף עובד במלואו גם בלי Gemini. עם מפתח משלכם, Gemini מציע דירוג לכל תשובה; ההחלטה הסופית תמיד שלכם. קראו קודם <a href="data.html#gemini">מה Gemini מקבל</a>.</p>
+    <ol>
+      <li>פתחו את <span class="ltr">aistudio.google.com/apikey</span>, התחברו, לחצו <b>Create API key</b> והעתיקו את המפתח.</li>
+      <li>בתוסף פתחו את התפריט (⋮), בחרו <b class="ui" data-key="menu.settings">הגדרות</b>, וליד Gemini לחצו <b class="ui" data-key="set.keyBtn">מפתח</b>.</li>
+      <li>הדביקו את המפתח בשדה <b class="ui" data-key="settings.keyField">מפתח Gemini API</b> ולחצו <b class="ui" data-key="btn.save">שמירה</b>.</li>
+    </ol>
+  </details>
+
+  <details id="manual">
+    <summary>אם תוכנת ההתקנה לא עובדת: התקנה ידנית</summary>
+    <p>לא צריך להירשם קודם: החשבון שלכם מצטרף לקבוצה אוטומטית בפעם הראשונה שהתוסף פונה לשרת של הקבוצה. ואז:</p>
+    <ol>
+      <li>פתחו <a href="https://script.google.com/home/projects/create" target="_blank" rel="noopener">פרויקט Apps Script חדש</a>, מחוברים בחשבון שממנו אתם כותבים להר"י.</li>
+      <li>לחצו על גלגל השיניים (<b>Project Settings</b>) בצד וסמנו <b>Show "appsscript.json" manifest file in editor</b>. חזרו לעורך (הסמל <span class="ltr">&lt;&gt;</span>).</li>
+      <li>ב<a href="https://github.com/amits-ds/ima-reply-tracking-addon/releases/latest" target="_blank" rel="noopener">עמוד הגרסה האחרונה</a> פתחו את <span class="ltr">Code.gs</span> ואת <span class="ltr">appsscript.json</span>. העתיקו את כל הטקסט של כל קובץ במקום הקובץ באותו שם בעורך, ולחצו Save (סמל הדיסק).</li>
+      <li>המשיכו ב<a href="#last-clicks">שלב 2</a> וב<a href="#first-run">שלב 3</a> למעלה.</li>
+    </ol>
+  </details>
+
+  <details id="trouble">
+    <summary>משהו לא עבד</summary>
+    <ul>
+      <li><b>תוכנת ההתקנה כותבת שהשרת לא קיבל את החשבון שלכם.</b> בדרך כלל נבחר חשבון Google אחר: הריצו שוב את תוכנת ההתקנה ובחרו את החשבון שממנו אתם כותבים להר"י. אם זה חוזר, כתבו לנו.</li>
+      <li><b>תוכנת ההתקנה ממשיכה לחכות ל-"Google Apps Script API".</b> ודאו שהמתג בעמוד הזה מופעל, באותו חשבון שבו התחברתם. לפעמים לוקח לגוגל כמה דקות.</li>
+      <li><b>לא רואים את סמל התוסף ב-Gmail.</b> פתחו מייל (לא רק את תיבת הדואר) וודאו שהחלונית שבצד פתוחה (החץ הקטן בקצה המסך). בדקו שה-Install בשלב 2 הסתיים ב-"Installed", ורעננו את Gmail.</li>
+      <li><b>הודעת שגיאה שספרייה (library) חסרה, או שאין לכם הרשאה.</b> החשבון שלכם לא קיבל גישה לקבצים של הקבוצה. כתבו לנו עם כתובת ה-Gmail שלכם.</li>
+      <li><b>בהגדרות מופיעה בעיה בהעלאה עם "not authorized".</b> ההתחברות פגה, או שהחשבון שלכם הוסר מהקבוצה. הרישומים נשמרים אצלכם ונשלחים אוטומטית כשזה מסתדר. כתבו לנו.</li>
+      <li><b>בהגדרות כתוב שהחברות שלכם מושהית לבדיקה.</b> זה קורה אוטומטית אחרי פעילות חריגה: הרבה מאוד רישומים ביום אחד, או התוסף מותקן ביותר מ-5 מחשבים בתוך 90 יום. מנהלי הקבוצה בודקים את זה; הרישומים נשמרים אצלכם ונשלחים כשההשהיה מוסרת. אפשר לכתוב לנו כדי להסביר.</li>
+      <li><b>התוסף מבקש עדכון.</b> ראו <a href="#updates">עדכונים</a>. שום דבר לא הולך לאיבוד בינתיים.</li>
+    </ul>
+    <p>יצירת קשר: <a href="mailto:imareplytracker@gmail.com">imareplytracker@gmail.com</a></p>
+  </details>
+
+  <details id="reinstall">
+    <summary>מחשב חדש, או התקנה מחדש</summary>
+    <p>הריצו שוב את פקודת ההתקנה (אותה פקודה כמו בפעם הראשונה). כל התקנה במחשב נוסף נחשבת עותק חדש של התוסף; יותר מ-5 בתוך 90 יום משהים את החברות לבדיקה. במסך הפתיחה האחרון לחצו <b class="ui" data-key="wel.restore">שחזור ההיסטוריה שלי</b>, או מאוחר יותר: <b class="ui" data-key="menu.settings">הגדרות</b> ← <b class="ui" data-key="set.advanced">מתקדם</b> ← <b class="ui" data-key="settings.restore">שחזור ההיסטוריה ממאגר הנתונים</b>. ההתכתבויות שכבר עקבתם אחריהן חוזרות, כך שלא תישאלו עליהן פעמיים. מפתח ה-Gemini, השם שלכם ובחירות הסגנון לא משוחזרים: הזינו אותם שוב.</p>
+  </details>
+
+  <details id="updates">
+    <summary>עדכונים</summary>
+    <p>כמעט כל עדכון מגיע אליכם מעצמו, בלי שתצטרכו לעשות דבר. אם החלונית נראית ישנה אחרי עדכון, בחרו Refresh בתפריט החלונית (⋮).</p>
+    <p>לעיתים רחוקות משתנה גם הקובץ של התוסף עצמו. אז התוסף מציג הודעה עם קישור להורדה. הדרך הפשוטה לעדכן היא להריץ שוב את פקודת ההתקנה; היא מעדכנת את העותק הקיים שלכם.</p>
+  </details>
+
+  <details id="uninstall">
+    <summary>הסרת התוסף</summary>
+    <p>פתחו את פרויקט התוסף שלכם (<span class="ltr">script.google.com</span>, "IMA Reply Tracking"), ולחצו <b>Deploy</b> ← <b>Test deployments</b> ← <b>Uninstall</b>. אפשר גם למחוק את הפרויקט. מאותו רגע לא נשלח דבר. רישומים שכבר נשלחו נשארים במאגר הנתונים החתום; ראו <a href="data.html#leaving">הפסקה, והוצאת הרישומים שלכם</a>.</p>
+  </details>
+
+  <details id="what-it-does">
+    <summary>מה תוכנת ההתקנה עושה, ואיך לבדוק</summary>
+    <p>תוכנת ההתקנה היא שלושה קובצי טקסט פשוטים שאתם או כל אחד אחר יכולים לקרוא. היא כותבת רק לתיקייה אחת בתיקיית הבית שלכם (<code>.ima-reply-tracking</code>), לא מתקינה דבר ברמת המערכת, אף פעם לא קוראת את הדואר שלכם, ומבטלת את ההתחברות לגוגל בסוף. כל קובץ נבדק מול טביעת אצבע שפורסמה לפני שהוא רץ.</p>
+    <p>הרשימה המלאה, והנחיה מוכנה לבדיקה בעזרת עוזר AI: <a href="https://github.com/amits-ds/ima-reply-tracking-addon/blob/main/install/WHAT_IT_DOES.he.md">מה תוכנת ההתקנה עושה</a>.</p>
+  </details>
+
+  <footer>העמוד הזה לא שולח שום מידע ואין בו עוגיות או כלי מעקב. עודכן לאחרונה: 23 בנובמבר 2026.</footer>
+</main>
+</body>
+</html>

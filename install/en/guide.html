@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Using IMA Reply Tracking</title>
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<main>
+  <div class="top">
+    <nav aria-label="Pages">
+      <a href="about.html">About</a>
+      <a href="data.html">Your data</a>
+      <a href="install.html">Install</a>
+      <a href="guide.html" aria-current="page">Using it</a>
+    </nav>
+    <a class="lang" href="../he/guide.html" hreflang="he" lang="he">עברית</a>
+  </div>
+
+  <h1>Using the add-on</h1>
+  <p class="lead">Most weeks it takes a few minutes. The add-on checks your mailbox by itself every morning, and for new replies every few hours. You only act when something waits for you.</p>
+
+  <div id="video">
+    <video controls preload="none" poster="../video/usage-en.jpg"><source src="../video/usage-en.mp4" type="video/mp4"></video>
+    <p class="muted">The whole tour in under two minutes, narrated and captioned. The names and emails are examples.</p>
+  </div>
+
+  <h2 id="home">The home screen</h2>
+  <p>Open Gmail and click the add-on icon in the right-hand panel. The home screen has two parts:</p>
+  <ul>
+    <li><b class="ui" data-key="home.needsHeader">Needs you</b>: replies from the IMA to rate, and new conversations with the IMA to sort. When there are any, the button at the bottom reads <b class="ui" data-key="home.review">Review 3 items</b>.</li>
+    <li><b class="ui" data-key="home.inqHeader">Your inquiries</b>: how many are waiting for the IMA, how many wait for you (<b class="ui" data-key="home.waitingYouHint">The IMA replied last</b>), and <b class="ui" data-key="home.coverage">Tracking 9 of 11 conversations</b> with the IMA in your mailbox.</li>
+  </ul>
+  <p><b class="ui" data-key="home.checkNow">Check now</b> checks your mailbox immediately instead of waiting for the next automatic check.</p>
+
+  <h2 id="review">A review, step by step</h2>
+  <p>Press the review button. The add-on goes through the waiting items one by one:</p>
+  <ol>
+    <li><b>New conversations</b> (<b class="ui" data-key="triage.title">New conversations with the IMA</b>): for each, pick a topic if it is your inquiry, or choose <b class="ui" data-key="triage.notInquiry">Not an inquiry</b>. Not sure? Leave it on <b class="ui" data-key="triage.decideLater">Decide later</b>. The last topic in the list, "Not sure / other", is fine when nothing fits.</li>
+    <li><b>Replies</b> (<b class="ui" data-key="reply.title">Rate the reply</b>): read the IMA's reply and tap the rating that fits. The tap saves it and moves to the next item.</li>
+  </ol>
+  <p>You can leave an item with <b class="ui" data-key="btn.skip">Skip for now</b> or stop with <b class="ui" data-key="btn.stop">Stop review</b>; what you skipped comes back next time, and what you did is saved.</p>
+
+  <h2 id="ratings">The four ratings</h2>
+  <p>Rate what the reply says, not how polite it is. The full definitions are one tap away on every reply (<b class="ui" data-key="reply.rubricHeader">Full definitions (the group's rubric)</b>).</p>
+  <div class="table-wrap"><table>
+    <tr><th>Rating</th><th>When</th></tr>
+    <tr><td><b class="ui" data-key="tag.helpful">Helpful</b></td><td class="ui" data-key="tagdef.helpful">A relevant, detailed answer that resolves your inquiry.</td></tr>
+    <tr><td><b class="ui" data-key="tag.unhelpful">Unhelpful</b></td><td class="ui" data-key="tagdef.unhelpful">A partial or general answer: it touches your question but does not resolve it.</td></tr>
+    <tr><td><b class="ui" data-key="tag.non-answer">Non-answer</b></td><td class="ui" data-key="tagdef.non-answer">Only confirms receipt, or refers you on without substance: "received", "forwarded for handling", an auto-reply.</td></tr>
+    <tr><td><b class="ui" data-key="tag.refusal">Refusal</b></td><td class="ui" data-key="tagdef.refusal">An explicit refusal to help (for example: it is not the union's role).</td></tr>
+  </table></div>
+
+  <h2 id="silence">When the IMA does not answer</h2>
+  <p>If 14 days pass after your last message with no reply, the add-on records "no reply" by itself and tells you after your next review, under <b class="ui" data-key="fin.autoHeader">Recorded automatically</b>. The conversation stays open: if the IMA answers later, you rate the reply as usual.</p>
+  <p>If you got your answer another way (by phone, in a meeting), press <b class="ui" data-key="btn.resolved">Resolved</b>, so it is not counted as unanswered.</p>
+
+  <h2 id="write">Writing a new inquiry</h2>
+  <ol>
+    <li>On the home screen press <b class="ui" data-key="home.newInquiry">New inquiry</b>.</li>
+    <li>Choose the recipients, a topic and a template (or <b class="ui" data-key="compose.templateBlank">No template (I will write it)</b>).</li>
+    <li>Press <b class="ui" data-key="compose.openGmail">Open in Gmail</b>. The text opens as a Gmail draft: edit it there, add attachments if needed, and send it as usual. Once it is sent, the add-on tracks it by itself.</li>
+  </ol>
+  <p class="muted">Drafts you have not sent yet are listed on the home screen. You can also send without Gmail's editor with <b class="ui" data-key="compose.sendHere">Send from here</b>; the add-on asks you to confirm before anything is sent.</p>
+  <p class="muted">Inquiries you write in Gmail without the add-on are found by the daily check and offered to you as new conversations.</p>
+
+  <h2 id="followup">Following up</h2>
+  <p>Open the inquiry (<b class="ui" data-key="home.allInquiries">All inquiries</b>, then the conversation) and press <b class="ui" data-key="thr.followUp">Send a follow-up</b>. The add-on prepares a reminder from the group's template in the same conversation, and sends only after you confirm with <b class="ui" data-key="compose.yesSend">Yes, send now</b>.</p>
+
+  <h2 id="change">Changing a rating</h2>
+  <p>Open the conversation, find the reply in its timeline and press <b class="ui" data-key="btn.change">Change</b>. The new rating is recorded with today's date; the earlier one stays in the log, and the latest one counts.</p>
+
+  <h2 id="from-email">From an open email</h2>
+  <p>When you open an email from the IMA, the add-on panel shows that conversation. If it is not tracked yet, it asks <b class="ui" data-key="ctx.ask">Is this one of your inquiries?</b> and you can press <b class="ui" data-key="ctx.track">Track this conversation</b>.</p>
+
+  <h2 id="settings">Settings</h2>
+  <p>Open the menu (⋮) and choose <b class="ui" data-key="menu.settings">Settings</b>. There you can change the language, your name and your <b class="ui" data-key="set.about">About you</b> answers, turn the <b class="ui" data-key="set.daily">Daily check</b> and the <b class="ui" data-key="set.remindText">Weekly reminder email</b> on or off, and add a Gemini key (<a href="install.html#gemini">how</a>).</p>
+  <p class="muted">At the bottom of every screen, <b class="ui" data-key="status.saved">All saved to the group log</b> means everything has reached the log. If records are waiting, they are kept on your computer and sent automatically.</p>
+
+  <h2 id="faq">Questions</h2>
+  <details>
+    <summary>Does the add-on read all my mail?</summary>
+    <p>It searches your mailbox for conversations with IMA addresses (<span class="ltr">ima.org.il</span> and the few personal addresses on the group's list) and reads only those. Nothing about other mail is recorded. <a href="data.html">What is sent</a></p>
+  </details>
+  <details>
+    <summary>Can the group read my emails?</summary>
+    <p>No. The log receives dates, addresses, topics, your ratings and the IMA's signed header lines, not the text of your emails. If copies are ever needed, we will ask you first (<a href="data.html#copies">how</a>). <a href="data.html#record">What exactly is in a record</a></p>
+  </details>
+  <details>
+    <summary>Does the IMA know I use it?</summary>
+    <p>The add-on never contacts the IMA. Emails you send with it are ordinary emails from you.</p>
+  </details>
+  <details>
+    <summary>I rated something by mistake, or tracked the wrong conversation.</summary>
+    <p>Change the rating as described <a href="#change">above</a>. For a conversation tracked by mistake, write to us: <a href="mailto:imareplytracker@gmail.com">imareplytracker@gmail.com</a>.</p>
+  </details>
+  <details>
+    <summary>I was away for weeks. Did I miss anything?</summary>
+    <p>No. Times are taken from the emails themselves, not from when you open the add-on, so catching up later gives the same data.</p>
+  </details>
+  <details>
+    <summary>How do I stop?</summary>
+    <p>Remove the add-on (<a href="install.html#uninstall">how</a>). Nothing more is sent from then on. <a href="data.html#leaving">What happens to records already sent</a></p>
+  </details>
+
+  <footer>This page sends no information anywhere and uses no cookies or trackers. Last updated: 23 November 2026.</footer>
+</main>
+</body>
+</html>

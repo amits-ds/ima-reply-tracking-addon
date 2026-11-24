@@ -1,0 +1,81 @@
+/* Shared style for the member documentation pages (install/he/*.html, install/en/*.html).
+   Same tokens as install/index.html; light and dark; RTL-safe (logical properties only). */
+:root {
+  --bg: #f6f7f9; --card: #ffffff; --text: #1d2330; --muted: #5a6475; --line: #dfe3ea;
+  --accent: #c6272d; --accent-ink: #ffffff; --ok: #1b7f4b; --warn-bg: #fff6e0; --warn-line: #e5b84a;
+  --info-bg: #eaf2fd; --info-line: #8fb4e8; --code-bg: #eef1f6; --todo-bg: #ffe3e3; --todo-ink: #7a0010;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171d; --card: #1d222b; --text: #e8ebf1; --muted: #a2abbb; --line: #333b49;
+    --accent: #e0555a; --accent-ink: #14171d; --ok: #55c58b; --warn-bg: #2f2a18; --warn-line: #8a6d1f;
+    --info-bg: #17263b; --info-line: #35598a; --code-bg: #272d38; --todo-bg: #4a1c22; --todo-ink: #ffd6da;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171d; --card: #1d222b; --text: #e8ebf1; --muted: #a2abbb; --line: #333b49;
+  --accent: #e0555a; --accent-ink: #14171d; --ok: #55c58b; --warn-bg: #2f2a18; --warn-line: #8a6d1f;
+  --info-bg: #17263b; --info-line: #35598a; --code-bg: #272d38; --todo-bg: #4a1c22; --todo-ink: #ffd6da;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: "Segoe UI", Arial, "Noto Sans Hebrew", sans-serif; line-height: 1.7; font-size: 17px;
+}
+main { max-width: 780px; margin: 0 auto; padding: 16px 16px 64px; }
+a { color: var(--accent); }
+a:focus-visible, summary:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
+
+/* top bar: page links + language switch */
+.top { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between;
+       border-block-end: 1px solid var(--line); padding-block-end: 10px; margin-block-end: 16px; font-size: .95rem; }
+.top nav { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.top nav a { text-decoration: none; }
+.top nav a[aria-current="page"] { color: var(--text); font-weight: 700; }
+.top .lang { text-decoration: none; border: 1px solid var(--line); border-radius: 99px; padding: 2px 12px; }
+
+h1 { font-size: 1.65rem; line-height: 1.3; margin: 8px 0 6px; }
+h2 { font-size: 1.2rem; margin: 28px 0 8px; }
+h3 { font-size: 1.05rem; margin: 18px 0 6px; }
+p { margin: 8px 0; }
+ul, ol { margin: 8px 0; padding-inline-start: 22px; }
+li { margin: 4px 0; }
+.lead { font-size: 1.08rem; }
+.muted { color: var(--muted); }
+
+.banner { background: var(--info-bg); border: 1px solid var(--info-line); border-radius: 12px; padding: 10px 14px; margin: 0 0 16px; }
+.note { background: var(--warn-bg); border: 1px solid var(--warn-line); border-radius: 10px; padding: 10px 14px; margin: 12px 0; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px; margin: 0 0 14px; }
+.todo { background: var(--todo-bg); color: var(--todo-ink); padding: 0 6px; border-radius: 6px; font-weight: 700; }
+
+/* the three-column "where does it go" summary; stacks on narrow screens */
+.flows { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 12px 0 8px; }
+.flow { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+.flow h3 { margin: 0 0 6px; font-size: 1rem; }
+.flow ul { padding-inline-start: 18px; font-size: .95rem; }
+.flow.log { border-block-start: 5px solid var(--accent); }
+.flow.stay { border-block-start: 5px solid var(--ok); }
+.flow.ai { border-block-start: 5px solid var(--info-line); }
+@media (max-width: 720px) { .flows { grid-template-columns: 1fr; } }
+
+details { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 8px 16px; margin: 8px 0; }
+details[open] { padding-block-end: 12px; }
+summary { cursor: pointer; font-weight: 600; }
+
+table { border-collapse: collapse; width: 100%; font-size: .95rem; margin: 8px 0; }
+th, td { text-align: start; vertical-align: top; padding: 6px 8px; border-block-end: 1px solid var(--line); }
+th { color: var(--muted); font-weight: 600; }
+.table-wrap { overflow-x: auto; }
+
+.ltr { direction: ltr; unicode-bidi: isolate; }
+code { background: var(--code-bg); padding: 0 5px; border-radius: 5px; font-size: .9em; }
+video { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); background: #000; margin: 12px 0 4px; }
+footer { color: var(--muted); font-size: .9rem; margin-top: 32px; border-block-start: 1px solid var(--line); padding-block-start: 12px; }
+@media print { .top, .banner { display: none; } details { border: 0; } details > * { display: block; } }
+
+/* the install page's two videos (Windows, Mac): side by side when there is room */
+.vids { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0 18px; }
+.vids figure { margin: 0; min-width: 0; }
+.vids figcaption { font-weight: 600; margin-top: 8px; }
+.vids > p { grid-column: 1 / -1; }

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>איך משתמשים במעקב תשובות הר"י</title>
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<main>
+  <div class="top">
+    <nav aria-label="עמודים">
+      <a href="about.html">על הפרויקט</a>
+      <a href="data.html">המידע שלכם</a>
+      <a href="install.html">התקנה</a>
+      <a href="guide.html" aria-current="page">איך משתמשים</a>
+    </nav>
+    <a class="lang" href="../en/guide.html" hreflang="en" lang="en">English</a>
+  </div>
+
+  <h1>איך משתמשים בתוסף</h1>
+  <p class="lead">ברוב השבועות זה לוקח כמה דקות. התוסף בודק את תיבת הדואר בעצמו בכל בוקר, ותשובות חדשות כל כמה שעות. אתם פועלים רק כשמשהו מחכה לכם.</p>
+
+  <div id="video">
+    <video controls preload="none" poster="../video/usage-he.jpg"><source src="../video/usage-he.mp4" type="video/mp4"></video>
+    <p class="muted">כל הסיור בפחות משתי דקות, עם קריינות וכתוביות. השמות והמיילים הם לדוגמה.</p>
+  </div>
+
+  <h2 id="home">מסך הבית</h2>
+  <p>פתחו את Gmail ולחצו על סמל התוסף בחלונית שבצד. במסך הבית שני חלקים:</p>
+  <ul>
+    <li><b class="ui" data-key="home.needsHeader">לטיפולכם</b>: תשובות של הר"י לדירוג, והתכתבויות חדשות עם הר"י למיון. כשיש כאלה, הכפתור בתחתית המסך הוא <b class="ui" data-key="home.review">לסקירת 3 פריטים</b>.</li>
+    <li><b class="ui" data-key="home.inqHeader">הפניות שלכם</b>: כמה ממתינות להר"י, כמה ממתינות לכם (<b class="ui" data-key="home.waitingYouHint">הר"י השיבה אחרונה</b>), וגם <b class="ui" data-key="home.coverage">במעקב 9 מתוך 11 התכתבויות</b> עם הר"י בתיבת הדואר שלכם.</li>
+  </ul>
+  <p><b class="ui" data-key="home.checkNow">בדיקה עכשיו</b> בודק את תיבת הדואר מיד, בלי לחכות לבדיקה האוטומטית הבאה.</p>
+
+  <h2 id="review">סקירה, צעד אחר צעד</h2>
+  <p>לחצו על כפתור הסקירה. התוסף עובר על הפריטים הממתינים אחד אחד:</p>
+  <ol>
+    <li><b>התכתבויות חדשות</b> (<b class="ui" data-key="triage.title">התכתבויות חדשות עם הר"י</b>): לכל אחת בחרו נושא אם זו פנייה שלכם, או <b class="ui" data-key="triage.notInquiry">לא פנייה</b>. לא בטוחים? השאירו <b class="ui" data-key="triage.decideLater">להחליט אחר כך</b>. הנושא האחרון ברשימה, "לא בטוח / אחר", מתאים כשאף נושא לא מתאים.</li>
+    <li><b>תשובות</b> (<b class="ui" data-key="reply.title">דירוג התשובה</b>): קראו את התשובה של הר"י והקישו על הדירוג המתאים. ההקשה שומרת ועוברת לפריט הבא.</li>
+  </ol>
+  <p>אפשר לעזוב פריט עם <b class="ui" data-key="btn.skip">דילוג בינתיים</b> או לעצור עם <b class="ui" data-key="btn.stop">עצירת הסקירה</b>; מה שדילגתם עליו יחזור בפעם הבאה, ומה שעשיתם נשמר.</p>
+
+  <h2 id="ratings">ארבעת הדירוגים</h2>
+  <p>דרגו את מה שכתוב בתשובה, לא את הנימוס שלה. ההגדרות המלאות נמצאות בהקשה אחת בכל תשובה (<b class="ui" data-key="reply.rubricHeader">ההגדרות המלאות של הקבוצה</b>).</p>
+  <div class="table-wrap"><table>
+    <tr><th>דירוג</th><th>מתי</th></tr>
+    <tr><td><b class="ui" data-key="tag.helpful">מועילה</b></td><td class="ui" data-key="tagdef.helpful">מענה ענייני ומפורט שפותר את הפנייה.</td></tr>
+    <tr><td><b class="ui" data-key="tag.unhelpful">לא מועילה</b></td><td class="ui" data-key="tagdef.unhelpful">מענה חלקי או כללי: נוגע בשאלה אבל לא פותר אותה.</td></tr>
+    <tr><td><b class="ui" data-key="tag.non-answer">תשובה ריקה</b></td><td class="ui" data-key="tagdef.non-answer">רק אישור קבלה, או הפניה בלי תוכן: "התקבל", "הועבר לטיפול", מענה אוטומטי.</td></tr>
+    <tr><td><b class="ui" data-key="tag.refusal">סירוב</b></td><td class="ui" data-key="tagdef.refusal">סירוב מפורש לעזור (למשל: זה לא תפקידה של הר"י).</td></tr>
+  </table></div>
+
+  <h2 id="silence">כשהר"י לא עונה</h2>
+  <p>אם עברו 14 יום מההודעה האחרונה שלכם בלי תשובה, התוסף רושם "אין תשובה" בעצמו ומציג זאת אחרי הסקירה הבאה, תחת <b class="ui" data-key="fin.autoHeader">נרשם אוטומטית</b>. ההתכתבות נשארת פתוחה: אם הר"י עונה מאוחר יותר, מדרגים את התשובה כרגיל.</p>
+  <p>אם קיבלתם מענה בדרך אחרת (בטלפון, בפגישה), לחצו <b class="ui" data-key="btn.resolved">טופל</b>, כדי שהפנייה לא תיספר כפנייה שלא נענתה.</p>
+
+  <h2 id="write">כתיבת פנייה חדשה</h2>
+  <ol>
+    <li>במסך הבית לחצו <b class="ui" data-key="home.newInquiry">פנייה חדשה</b>.</li>
+    <li>בחרו נמענים, נושא ותבנית (או <b class="ui" data-key="compose.templateBlank">בלי תבנית (אכתוב בעצמי)</b>).</li>
+    <li>לחצו <b class="ui" data-key="compose.openGmail">פתיחה ב-Gmail</b>. הנוסח נפתח כטיוטה ב-Gmail: ערכו אותו שם, צרפו קבצים אם צריך, ושלחו כרגיל. אחרי השליחה התוסף עוקב אחרי הפנייה בעצמו.</li>
+  </ol>
+  <p class="muted">טיוטות שעוד לא נשלחו מופיעות במסך הבית. אפשר גם לשלוח בלי העורך של Gmail, עם <b class="ui" data-key="compose.sendHere">שליחה מכאן</b>; התוסף מבקש אישור לפני שנשלח משהו.</p>
+  <p class="muted">פניות שכתבתם ב-Gmail בלי התוסף נמצאות בבדיקה היומית ומוצעות לכם כהתכתבויות חדשות.</p>
+
+  <h2 id="followup">שליחת תזכורת</h2>
+  <p>פתחו את הפנייה (<b class="ui" data-key="home.allInquiries">כל הפניות</b>, ואז ההתכתבות) ולחצו <b class="ui" data-key="thr.followUp">שליחת תזכורת</b>. התוסף מכין תזכורת מהתבנית של הקבוצה באותה התכתבות, ושולח רק אחרי שתאשרו עם <b class="ui" data-key="compose.yesSend">כן, לשלוח עכשיו</b>.</p>
+
+  <h2 id="change">שינוי דירוג</h2>
+  <p>פתחו את ההתכתבות, מצאו את התשובה בציר הזמן ולחצו <b class="ui" data-key="btn.change">שינוי</b>. הדירוג החדש נרשם עם התאריך של היום; הקודם נשאר במאגר הנתונים, והאחרון הוא שקובע.</p>
+
+  <h2 id="from-email">מתוך מייל פתוח</h2>
+  <p>כשפותחים מייל מהר"י, חלונית התוסף מציגה את ההתכתבות הזו. אם היא עוד לא במעקב, התוסף שואל <b class="ui" data-key="ctx.ask">האם זו פנייה שלכם?</b> ואפשר ללחוץ <b class="ui" data-key="ctx.track">התחלת מעקב</b>.</p>
+
+  <h2 id="settings">הגדרות</h2>
+  <p>פתחו את התפריט (⋮) ובחרו <b class="ui" data-key="menu.settings">הגדרות</b>. שם אפשר לשנות שפה, שם ואת התשובות ב<b class="ui" data-key="set.about">קצת עליכם</b>, להפעיל או לכבות את ה<b class="ui" data-key="set.daily">בדיקה יומית</b> ואת ה<b class="ui" data-key="set.remindText">תזכורת שבועית במייל</b>, ולהוסיף מפתח Gemini (<a href="install.html#gemini">איך</a>).</p>
+  <p class="muted">בתחתית כל מסך, <b class="ui" data-key="status.saved">הכול נשמר במאגר הנתונים של הקבוצה</b> אומר שהכול הגיע למאגר הנתונים. אם רישומים ממתינים, הם שמורים במחשב שלכם ונשלחים אוטומטית.</p>
+
+  <h2 id="faq">שאלות</h2>
+  <details>
+    <summary>התוסף קורא את כל הדואר שלי?</summary>
+    <p>הוא מחפש בתיבת הדואר התכתבויות עם כתובות הר"י (<span class="ltr">ima.org.il</span> וכמה כתובות פרטיות שברשימה של הקבוצה) וקורא רק אותן. שום דבר על דואר אחר לא נרשם. <a href="data.html">מה נשלח</a></p>
+  </details>
+  <details>
+    <summary>הקבוצה יכולה לקרוא את המיילים שלי?</summary>
+    <p>לא. מאגר הנתונים מקבל תאריכים, כתובות, נושאים, הדירוגים שלכם ושורות הכותרת החתומות של הר"י, לא את תוכן המיילים שלכם. אם בעתיד יידרשו עותקים, נבקש מכם קודם (<a href="data.html#copies">איך</a>). <a href="data.html#record">מה בדיוק יש ברישום</a></p>
+  </details>
+  <details>
+    <summary>הר"י יודעת שאתם משתמשים בתוסף?</summary>
+    <p>התוסף אף פעם לא פונה להר"י. מיילים שאתם שולחים דרכו הם מיילים רגילים מכם.</p>
+  </details>
+  <details>
+    <summary>דירגתי משהו בטעות, או התחלתי מעקב אחרי ההתכתבות הלא נכונה.</summary>
+    <p>שנו את הדירוג כמו שמתואר <a href="#change">למעלה</a>. על התכתבות שנכנסה למעקב בטעות, כתבו לנו: <a href="mailto:imareplytracker@gmail.com">imareplytracker@gmail.com</a>.</p>
+  </details>
+  <details>
+    <summary>לא פתחתי את התוסף כמה שבועות. פספסתי משהו?</summary>
+    <p>לא. הזמנים נלקחים מהמיילים עצמם, לא מהרגע שבו פותחים את התוסף, כך שהשלמה מאוחרת נותנת את אותם נתונים.</p>
+  </details>
+  <details>
+    <summary>איך מפסיקים?</summary>
+    <p>מסירים את התוסף (<a href="install.html#uninstall">איך</a>). מאותו רגע לא נשלח דבר. <a href="data.html#leaving">מה קורה לרישומים שכבר נשלחו</a></p>
+  </details>
+
+  <footer>העמוד הזה לא שולח שום מידע ואין בו עוגיות או כלי מעקב. עודכן לאחרונה: 23 בנובמבר 2026.</footer>
+</main>
+</body>
+</html>

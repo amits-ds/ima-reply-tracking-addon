@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your data: IMA Reply Tracking</title>
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<main>
+  <div class="top">
+    <nav aria-label="Pages">
+      <a href="about.html">About</a>
+      <a href="data.html" aria-current="page">Your data</a>
+      <a href="install.html">Install</a>
+      <a href="guide.html">Using it</a>
+    </nav>
+    <a class="lang" href="../he/data.html" hreflang="he" lang="he">עברית</a>
+  </div>
+
+  <!-- PILOT EDITION: remove this banner and the "pilot" section for the general release -->
+  <p class="banner"><b>Pilot edition.</b> During the pilot, what you log is used only to test the tool and is then deleted. <a href="#pilot">Details</a>.</p>
+
+  <h1>Your data: what we receive, and what we don't</h1>
+  <p class="lead">The add-on runs in your own Gmail account. It sends the group a short record of each event in your conversations with the IMA, not the text of your emails. Here is where everything goes.</p>
+  <p class="muted">Prefer to watch? <a href="about.html#video">A two-minute video</a> explains the project and where your data goes.</p>
+
+  <div class="flows">
+    <section class="flow log">
+      <h3>Sent to the group's log</h3>
+      <ul>
+        <li>Your Gmail address</li>
+        <li>The IMA addresses in the conversation</li>
+        <li>The topic you chose</li>
+        <li>What happened and when: you wrote, they replied, no reply after 14 days, resolved</li>
+        <li>Your rating of each IMA reply</li>
+        <li>Technical identifiers and a fingerprint of each email</li>
+        <li>For IMA replies: the lines the IMA's mail server signed, including the <b>subject line</b></li>
+        <li>How many IMA conversations the add-on found, and how many you track</li>
+        <li>Optional: your career stage, field, workplace type, IMA role</li>
+      </ul>
+    </section>
+    <section class="flow stay">
+      <h3>Stays only with you</h3>
+      <ul>
+        <li>The text of every email</li>
+        <li>Attachments</li>
+        <li>All your mail that is not with the IMA</li>
+        <li>Your list of tracked conversations and your settings</li>
+        <li>Your sign-off name and your Gemini key</li>
+        <li>Drafts you have not sent</li>
+      </ul>
+    </section>
+    <section class="flow ai">
+      <h3>Sent to Google's Gemini, only if you turn it on</h3>
+      <ul>
+        <li>The text of IMA replies, with the earlier messages in that conversation</li>
+        <li>Your first message in a new IMA conversation</li>
+        <li>For "write in my own style": up to 5 emails you chose</li>
+      </ul>
+      <p class="muted">Off unless you add your own key. <a href="#gemini">More</a></p>
+    </section>
+  </div>
+
+  <div class="note"><b>Please keep patient details out of subject lines</b> of emails to the IMA. Subject lines of IMA replies are part of what the log keeps (<a href="#signed">why</a>).</div>
+
+  <h2>The details</h2>
+
+  <details id="record">
+    <summary>What exactly is in one record</summary>
+    <p>A record is created when you send an email to the IMA in a tracked conversation, when the IMA replies and you rate it, and when a conversation goes silent or you mark it resolved.</p>
+    <div class="table-wrap"><table>
+      <tr><th>Item</th><th>Example / meaning</th></tr>
+      <tr><td>Your Gmail address</td><td>Who logged it. The log only accepts records signed in as you.</td></tr>
+      <tr><td>IMA addresses</td><td>The IMA addresses in the conversation (<span class="ltr">ima.org.il</span>, and personal addresses of IMA staff on the group's list). Other addresses are not recorded here.</td></tr>
+      <tr><td>Sender of the email</td><td>Your address on your emails; on a reply you rate, the address of whoever wrote it (normally IMA staff).</td></tr>
+      <tr><td>Topic</td><td>Chosen from the group's list (for example "Pay and pay conditions").</td></tr>
+      <tr><td>Event and time</td><td>Sent, reply, no reply after 14 days, resolved; the email's own date and time.</td></tr>
+      <tr><td>Your rating</td><td>Helpful, unhelpful, non-answer or refusal.</td></tr>
+      <tr><td>Identifiers</td><td>Gmail's conversation and message numbers, and the email's own Message-ID. They let you find the original email again later.</td></tr>
+      <tr><td>Fingerprint</td><td>A code computed from the whole email (a SHA-256 hash). It proves that a copy shown later is the same email, but the email cannot be rebuilt from it.</td></tr>
+      <tr><td>Signed lines (IMA replies only)</td><td>See <a href="#signed">below</a>.</td></tr>
+      <tr><td>Gemini's suggestion (only if you use Gemini)</td><td>The rating Gemini suggested and its explanation of one or two sentences. The explanation can describe what the reply said.</td></tr>
+      <tr><td>Version, receipt time and a fingerprint of the rating definitions</td><td>Which version of the add-on you used, when the log received the record, and which wording of the four ratings you saw.</td></tr>
+    </table></div>
+    <p>When you join, your Gmail address is also added to the list of members allowed to send records.</p>
+  </details>
+
+  <details id="signed">
+    <summary>Why the log keeps the IMA's signed lines, including the subject</summary>
+    <p>The IMA's mail server adds a digital signature to every email it sends. It covers the sender, the date, the <b>subject line</b>, the message's ID and a fingerprint of its text. The add-on copies these signed lines, but not the text itself.</p>
+    <p>Because only the IMA's server can make that signature, anyone can later check, without your help and without your mailbox, that a reply in the log really came from the IMA, when, and with what subject. This is what makes the records hard to dispute.</p>
+    <p>The signature does <b>not</b> cover who the email was sent to. That part of the record comes from the add-on.</p>
+    <p>The subject line cannot be left out: without it, the signature can no longer be checked. That is why we ask you not to put patient details in subject lines.</p>
+  </details>
+
+  <details id="automatic">
+    <summary>Records the add-on makes by itself</summary>
+    <ul>
+      <li><b>No reply after 14 days:</b> if your last message in a tracked conversation has had no answer for 14 days, a "no reply" record is added. If the IMA answers later, the reply is logged as usual. If you got an answer another way, press <b class="ui" data-key="btn.resolved">Resolved</b>.</li>
+      <li><b>Coverage counts:</b> when the add-on checks your mailbox, it records how many conversations with the IMA it found, how many you track, how many you marked as not an inquiry, and how many are still waiting for an answer. Only numbers: no subjects, no addresses. They show that the log is not only a selection of the bad cases.</li>
+      <li><b>Changed ratings:</b> if you change a rating, a new dated record is added. The earlier one stays, and the latest one counts.</li>
+    </ul>
+  </details>
+
+  <details id="profile">
+    <summary>The optional "about you" questions</summary>
+    <p>To see whether the IMA answers different members differently, the add-on asks once, optionally:</p>
+    <ul>
+      <li>career stage (intern, resident, specialist, senior: head of unit or department);</li>
+      <li>field (internal medicine, surgery, pediatrics, obstetrics and gynecology, family medicine, psychiatry, anesthesia, emergency medicine, imaging, other);</li>
+      <li>where you work (government hospital, Clalit hospital, other public hospital, private hospital, community / HMO clinic);</li>
+      <li>whether you hold any role in the IMA (committee, representative or staff).</li>
+    </ul>
+    <p>Every question has "prefer not to say". You can change your answers in Settings; the latest answers count.</p>
+  </details>
+
+  <details id="gemini">
+    <summary>Gemini (optional, off unless you turn it on)</summary>
+    <p>The add-on works fully without Gemini: you choose every rating yourself. If you add your own Gemini key (from Google), Gemini suggests a rating with a short explanation, suggests a topic and a one-line summary for new conversations, and can rewrite a draft in your own style. The final choice is always yours.</p>
+    <p>With a key, the text listed in the third column above goes to Google's Gemini service, with your key, from your account. On Google's free tier, Google's terms allow it to use what you send to improve its products; paid keys are treated differently. IMA replies can contain personal or medical details: if you are unsure, leave Gemini off.</p>
+    <p>Gemini's suggested rating and its explanation are sent to the log, so we can measure how often the suggestions match members' choices.</p>
+  </details>
+
+  <details id="who">
+    <summary>Who can see it, and where it is kept</summary>
+    <ul>
+      <li>The log is kept in Google Cloud, in Google's Tel Aviv region (Israel), in the project's own Google Cloud account: a private database, and a separate archive copy that, from the general release on, nobody can change or delete, not even the administrators. Google stores it on the project's behalf. Only Dr. Amit Steiner and Dr. Assaf Vital can see individual records.</li>
+      <li>For analysis, your email address is replaced by a code.</li>
+      <li>Every day, the administrators receive a short email (from the general release, also one trusted person outside the team) with the number of records and a fingerprint of that day's records, chained to the fingerprints of the days before. It contains no records, names or addresses. It lets an outsider confirm later that the log was not changed.</li>
+      <li>Any Google account can join by installing the add-on. An account with unusual activity is paused automatically until the administrators look at it, and the analysis is checked so that no single member can tip a result.</li>
+      <li>Because anyone can join, the group's shared lists (the IMA addresses we write to, the email templates, the topics and the rating definitions) are visible to every member: treat them as public. Your own records are not.</li>
+      <li>Other members cannot see your records, and you cannot see theirs. The add-on can read back only your own records, for example to restore your history after a reinstall.</li>
+    </ul>
+  </details>
+
+  <details id="use">
+    <summary>How it is used and published</summary>
+    <ul>
+      <li>Results are combined numbers: response times, unanswered inquiries, reply ratings, and differences between groups of members. They will be publicly available. A group too small to protect its members' identity is not reported on its own.</li>
+      <li>No member is named in anything published. A specific case is described only with that member's separate permission.</li>
+      <li>The records may be used as evidence in legal proceedings or before other outside bodies. That is why the log is sealed: every day's records get a digital fingerprint chained to the previous day's, and a separate archive copy is kept, so any later change or deletion would show.</li>
+    </ul>
+  </details>
+
+  <details id="copies">
+    <summary>If copies of emails are ever needed</summary>
+    <p>The add-on does not send the text of your emails. If we ever need copies of specific emails, for example for legal proceedings, we will ask you separately. You can refuse, and nothing is sent without your explicit approval.</p>
+  </details>
+
+  <!-- PILOT EDITION -->
+  <details id="pilot" open>
+    <summary>During the pilot</summary>
+    <p>What you log during the pilot is used only to find problems and improve the add-on. It is not analysed for results, not published and not used as evidence. The pilot log is deleted within 3 months after the pilot ends, and the full project starts with a new, empty log.</p>
+  </details>
+
+  <details id="leaving">
+    <summary>Stopping, and removing your records</summary>
+    <ul>
+      <li>You can stop at any time by removing the add-on. Nothing more is sent from then on.</li>
+      <li>Because the log is sealed, a record cannot be deleted without breaking the seal. If you ask, your records are excluded from all analysis and from anything published, but they stay in the sealed log.</li>
+      <li>How long the full project keeps its data: 7 years (until legal advice says otherwise).</li>
+    </ul>
+  </details>
+
+  <details id="permissions">
+    <summary>The permissions Google will ask you to approve</summary>
+    <p>Google lists them in its own words (checked on the production add-on, 24 Nov 2026). What each one is used for:</p>
+    <div class="table-wrap"><table>
+      <tr><th>Permission (Google's words)</th><th>Used for</th></tr>
+      <tr><td>View your email messages and settings</td><td>Finding your conversations with the IMA and reading the replies you rate. The add-on never deletes, moves or changes an email.</td></tr>
+      <tr><td>Manage drafts and send emails</td><td>Preparing drafts for you, and sending only when you click Send.</td></tr>
+      <tr><td>Run as a Gmail add-on; View your email message metadata when the add-on is running; Manage drafts and send emails when you interact with the add-on</td><td>Showing the add-on beside an email and opening drafts in Gmail's own editor.</td></tr>
+      <tr><td>See your profile info</td><td>Knowing your email address, and proving who you are to the group's log.</td></tr>
+      <tr><td>View your country, language, and timezone</td><td>Showing the add-on in Hebrew or English like your Gmail.</td></tr>
+      <tr><td>Connect to an external service</td><td>Sending records to the group's log, checking for updates, and Gemini if you add a key.</td></tr>
+      <tr><td>Allow this application to run when you are not present</td><td>The daily check of your mailbox, and the weekly reminder email (from you, to you).</td></tr>
+    </table></div>
+    <p>Google will warn that the app is "unverified". That is expected: it is your own copy of the add-on, not an app published in a store.</p>
+  </details>
+
+  <h2 id="agree">Agreeing</h2>
+  <p>During the pilot we ask you to reply "I agree" to the invitation email after reading this page. You can withdraw at any time, as described above.</p>
+
+  <h2 id="contact">Questions about your data</h2>
+  <p>Write to <a href="mailto:imareplytracker@gmail.com">imareplytracker@gmail.com</a>.</p>
+
+  <footer>This page sends no information anywhere and uses no cookies or trackers. Last updated: 23 November 2026.</footer>
+</main>
+</body>
+</html>

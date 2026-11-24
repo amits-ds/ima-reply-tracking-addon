@@ -1,0 +1,58 @@
+{
+  "timeZone": "Asia/Jerusalem",
+  "dependencies": {
+    "enabledAdvancedServices": [
+      {
+        "userSymbol": "Gmail",
+        "serviceId": "gmail",
+        "version": "v1"
+      }
+    ],
+    "libraries": [
+      {
+        "userSymbol": "ReplyTrackingLib",
+        "libraryId": "1QynGuTmfYPYXBlRMk1eB1JAUR7AaGvzL18I_fP4YQjm-d1VAb_hX1bUZ",
+        "version": "0",
+        "developmentMode": true
+      }
+    ]
+  },
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/gmail.addons.execute",
+    "https://www.googleapis.com/auth/gmail.addons.current.message.metadata",
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/gmail.compose",
+    "https://www.googleapis.com/auth/gmail.addons.current.action.compose",
+    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/script.locale",
+    "https://www.googleapis.com/auth/script.external_request",
+    "https://www.googleapis.com/auth/script.scriptapp",
+    "openid"
+  ],
+  "addOns": {
+    "common": {
+      "name": "IMA Reply Tracking",
+      "useLocaleFromApp": true,
+      "logoUrl": "https://raw.githubusercontent.com/amits-ds/ima-reply-tracking-addon/main/assets/icon.png",
+      "homepageTrigger": {
+        "runFunction": "onHomepage"
+      },
+      "layoutProperties": {
+        "primaryColor": "#c6272d"
+      }
+    },
+    "gmail": {
+      "homepageTrigger": {
+        "runFunction": "onHomepage"
+      },
+      "contextualTriggers": [
+        {
+          "unconditional": {},
+          "onTriggerFunction": "onGmailMessage"
+        }
+      ]
+    }
+  }
+}
