@@ -79,3 +79,6 @@ footer { color: var(--muted); font-size: .9rem; margin-top: 32px; border-block-s
 .vids figure { margin: 0; min-width: 0; }
 .vids figcaption { font-weight: 600; margin-top: 8px; }
 .vids > p { grid-column: 1 / -1; }
+.cmd { margin: 6px 0 12px; }
+.cmd pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin: 0; white-space: pre-wrap; word-break: break-all; font-size: .85rem; text-align: left; }
+.cmd button { margin-top: 6px; font: inherit; font-size: .9rem; padding: 3px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; }
