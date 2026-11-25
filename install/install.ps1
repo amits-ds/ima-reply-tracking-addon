@@ -80,11 +80,13 @@ try {
   if ($Yes)         { $a += '--yes' }
   if ($NoOpen)      { $a += '--no-open' }
   & $node @a
-  exit $LASTEXITCODE
+  # return, not exit: the command runs this launcher inside the member's own PowerShell window, and exit would close it (and the
+  # installer's last messages with it).
+  return
 }
 catch {
   Write-Host ''
   Write-Host ('ERROR: ' + $_.Exception.Message) -ForegroundColor Red
   Write-Host 'If this keeps happening, send the organizer a screenshot of this window.'
-  exit 1
+  return
 }
