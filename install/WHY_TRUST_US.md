@@ -77,9 +77,9 @@ allow deleting drafts. The limits in claims 1 and 3 are kept by the code, so the
 
 ### What it does on its own
 10. **It sends email only when you press Send, plus one reminder to yourself.** Messages to the IMA go out only from the confirmation
-    step you click (`onSendFinal` -> `sendComposedEmail`, which calls `sendFollowup` for a follow-up), or you send a draft yourself in Gmail ("Open in Gmail" creates that draft in your mailbox: `onOpenInGmail`). **Note:** a follow-up is
-    also copied (Cc) to everyone on the conversation's last message (`followupRecipients`), and the confirmation card shows only the
-    main recipients, not that Cc list. The only automatic email is a weekly
+    step you click (`onSendFinal` -> `sendComposedEmail`, which calls `sendFollowup` for a follow-up), or you send a draft yourself in Gmail ("Open in Gmail" creates that draft in your mailbox: `onOpenInGmail`). A follow-up is
+    also copied (Cc) to everyone else on the conversation's last message (`followupRecipients`); the confirmation card lists both
+    To and Cc before you press Send (`followupRoute`, from release 3). The only automatic email is a weekly
     reminder from you to you, when items have waited a week, and you can switch it off (`maybeSendReminder_`, `sendReminder_`).
 11. **One background job.** One timer every two hours (`lightCheckTrigger`, installed by `maybeScan_`): it looks for new messages in
     tracked conversations, once a day scans for new IMA conversations, records an automatic "no reply" when the IMA has not

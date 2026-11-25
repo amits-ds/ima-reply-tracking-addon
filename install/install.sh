@@ -13,7 +13,7 @@ set -euo pipefail
 
 REPO="amits-ds/ima-reply-tracking-addon"
 REF="main"                                          # replaced by tools/release.py with the release tag
-EXPECTED_SHA256="fb342796ae39dd2254786703c9e9fc62198719928631f1af3b3b0b43545ef615"            # replaced by tools/release.py: SHA-256 of install.js for this release
+EXPECTED_SHA256="6b61c7b7a123ae22eb72894438f73b354abfbe898e9c656a685588450c0486b0"            # replaced by tools/release.py: SHA-256 of install.js for this release
 ROOT="$HOME/.ima-reply-tracking"
 NODE_DIR="$ROOT/node"
 mkdir -p "$ROOT"

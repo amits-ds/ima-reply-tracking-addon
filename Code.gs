@@ -19,7 +19,7 @@
 // DEVELOPMENT TOOLS (the "Test Gemini on sample cases" button and its upload of results). false in git and in every release; tools/sync_all.py
 // switches it on in the TEST copy only, and `tools/release.py check` refuses a production push if it is not false here.
 const DEV_TOOLS = false;
-const CODE_VERSION = 'v2'; // bump whenever you redistribute this Code.gs / appsscript.json
+const CODE_VERSION = 'v3'; // bump whenever you redistribute this Code.gs / appsscript.json
 
 // ======================= VERSION CHECK (cached 6h so the homepage stays fast) =======================
 function checkVersions() {
@@ -30,7 +30,7 @@ function checkVersions() {
   try {
     const remoteContainer = ReplyTrackingLib.getLatestContainerVersionFromGitHub();
     if (remoteContainer && remoteContainer !== CODE_VERSION) {
-      notices.push(t('ver.container', CODE_VERSION, remoteContainer, `<a href="${ReplyTrackingLib.getCodeDownloadUrl()}">`, '</a>'));
+      notices.push(t('ver.container', CODE_VERSION, remoteContainer, `<a href="${ReplyTrackingLib.getCodeDownloadUrl(lang_())}">`, '</a>'));
     }
     const remoteLibrary = ReplyTrackingLib.getLatestLibraryVersionFromGitHub();
     const localLibrary = ReplyTrackingLib.getLibraryVersion();
@@ -54,7 +54,22 @@ function myEmail() { return ReplyTrackingLib.getMyEmail(); }
 // Each Properties value is capped at ~9 KB, so nothing big is ever stored as one value:
 //   - registry: ONE property per thread ("t_<threadId>")
 //   - queues / lists: split into small chunks by putBlob/getBlob
-const UP = PropertiesService.getUserProperties();
+// Every UserProperties call is a round trip (measured 25 Nov 2026: ~65 ms per getProperty, ~100 ms for all of them at once), and a
+// card makes dozens of reads. So all properties are read ONCE per execution and served from memory; writes go straight through and
+// update the copy. Code that must see other executions' writes (after taking a lock) calls UP.refresh() first.
+const UP = (function (store) {
+  let snap = null;
+  const all = () => snap || (snap = store.getProperties());
+  return {
+    getProperty: k => Object.prototype.hasOwnProperty.call(all(), k) ? all()[k] : null,
+    getProperties: () => Object.assign({}, all()),
+    getKeys: () => Object.keys(all()),
+    setProperty: (k, v) => { store.setProperty(k, v); if (snap) snap[k] = String(v); },
+    setProperties: p => { store.setProperties(p); if (snap) Object.keys(p).forEach(k => { snap[k] = String(p[k]); }); },
+    deleteProperty: k => { store.deleteProperty(k); if (snap) delete snap[k]; },
+    refresh: () => { snap = null; }
+  };
+})(PropertiesService.getUserProperties());
 const CHUNK_CHARS = 2500; // x up to 3 bytes (Hebrew = 2) stays well under 9 KB
 
 function putBlob(name, obj) {
@@ -295,6 +310,7 @@ function flushOutbox(opts) {
   const started = Date.now();
   const lock = LockService.getUserLock();
   if (!lock.tryLock(opts.waitMs || 3000)) return { skipped: 'busy', remaining: outboxCount() };
+  UP.refresh();   // see events queued or corrected by other executions
   const total = { sent: 0, duplicates: 0, rejected: 0, remaining: 0 };
   try {
     UP.setProperty('lastFlushAttempt', String(Date.now()));
@@ -443,8 +459,11 @@ function updateTo(card) { return CardService.newActionResponseBuilder().setNavig
 
 // ======================= SHARED CARD PIECES (redesign, 17 Nov 2026) =======================
 /** A Material icon for a DecoratedText; falls back to a built-in icon if this Gmail does not support Material icons in add-ons. */
+// Each CardService call costs ~1 ms and an icon takes four, so each icon is built once per execution and reused by every row.
+const _icons = {};
 function icon_(name) {
-  try { return CardService.newIconImage().setMaterialIcon(CardService.newMaterialIcon().setName(name)); }
+  if (_icons[name]) return _icons[name];
+  try { return (_icons[name] = CardService.newIconImage().setMaterialIcon(CardService.newMaterialIcon().setName(name))); }
   catch (e) { return CardService.newIconImage().setIcon(CardService.Icon.DESCRIPTION); }
 }
 /**
@@ -1485,6 +1504,7 @@ function correctRating_(entry, threadId, msgId, newTag) {
   const lock = LockService.getUserLock();
   lock.waitLock(10000);
   try {
+    UP.refresh();   // a flush may have removed the key since this execution first read the properties
     const queued = UP.getProperty(key);
     if (queued) {
       const ev = JSON.parse(queued);
@@ -2324,11 +2344,15 @@ function onSendComposed(e) {
   s.subject = subject; s.body = body;
   saveComposeSession(s);
 
-  const toLine = s.mode === 'new' ? s.targets.map(tg => tg.email).join(', ') : s.recipients;
+  // Follow-ups: show the exact To and Cc sendFollowup will use (Cc = everyone else on the last message).
+  const route = s.mode === 'followup'
+    ? ReplyTrackingLib.followupRoute(s.threadId, s.recipients ? s.recipients.split(', ') : []) : null;
+  const toLine = s.mode === 'new' ? s.targets.map(tg => tg.email).join(', ') : (route ? route.to.join(', ') : s.recipients);
   const builder = CardService.newCardBuilder();
   builder.setHeader(header(t('compose.sendTitle')));
   const section = CardService.newCardSection();
   section.addWidget(para('<b>' + t('lbl.to') + '</b> ' + userText(esc(toLine))));
+  if (route && route.cc.length) section.addWidget(para('<b>' + t('lbl.cc') + '</b> ' + userText(esc(route.cc.join(', ')))));
   if (s.mode === 'new') section.addWidget(para('<b>' + t('lbl.subject') + '</b> ' + esc(subject)));
   else section.addWidget(para('<b>' + t('compose.followInThread') + '</b>'));
   section.addWidget(contentPara(nl2br(esc(body.length > 600 ? body.slice(0, 600) + '…' : body))));
@@ -2346,6 +2370,7 @@ function onSendFinal() {
   const lock = LockService.getUserLock();
   if (!lock.tryLock(3000)) return note(t('compose.sendBusy'));
   try {
+    UP.refresh();   // a double-click's first execution may have set `sending` since this one read the properties
     const s = loadComposeSession();
     if (!s.mode || s.sending) return note(t('compose.alreadySent'));
     s.sending = true;
@@ -2543,6 +2568,7 @@ function evRun_(budgetMs, firstId) {
   if (!evQueued_().length) return;
   const lock = LockService.getScriptLock();
   if (!lock.tryLock(0)) return;                     // another pass is working
+  UP.refresh();                                     // the previous pass may have finished conversations since this execution read them
   try { runEvidence_(budgetMs, firstId); } finally { lock.releaseLock(); }
 }
 /** Stop and turn-off: forget the waiting conversations. */

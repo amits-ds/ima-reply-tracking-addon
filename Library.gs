@@ -37,13 +37,12 @@ const UNION_DOMAIN = 'ima.org.il';
 const SILENCE_THRESHOLD_DAYS = 14;   // days after the last message before an inquiry can be tagged ignored / resolved
 const TAGS = ['helpful', 'unhelpful', 'non-answer', 'refusal'];
 const AUTO_SCAN_LIMIT = 40;
-const LIBRARY_VERSION = '2'; // plain integer, numerically matching the Apps Script library deployment version you publish
+const LIBRARY_VERSION = '3'; // plain integer, numerically matching the Apps Script library deployment version you publish
 
-// GitHub repo holding the distributable Code.gs + appsscript.json ONLY.
-// Never push this Library.gs file there — it has the real Sheet ID and gateway URL.
+// Public GitHub repo: Code.gs, appsscript.json and the production build of this file (published since 25 Nov 2026 so members can
+// check it; install/WHY_TRUST_US.md). Publish the BUILD (build/production/lib), never this git copy's placeholders by hand.
 const GITHUB_OWNER = 'amits-ds';
 const GITHUB_REPO = 'ima-reply-tracking-addon';
-const CODE_DOWNLOAD_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/releases/latest/download/Code.gs`;
 const HELP_VIDEO_URL = '';   // optional help video; none for the pilot (plan D10): the member docs below replace it. A release config may set it.
 // Member documentation: install/{he,en}/<page>.html in the public repo, served by GitHub Pages (public pages, not a secret).
 const DOCS_BASE_URL = `https://${GITHUB_OWNER.toLowerCase()}.github.io/${GITHUB_REPO}/install/`;
@@ -175,7 +174,9 @@ function getLatestLibraryVersionFromGitHub() {
 /** Functions are always safely exposed across a library boundary; a top-level const isn't guaranteed to be. */
 function getLibraryVersion() { return LIBRARY_VERSION; }
 function getSilenceThresholdDays() { return SILENCE_THRESHOLD_DAYS; }
-function getCodeDownloadUrl() { return CODE_DOWNLOAD_URL; }
+/** Where the add-on's update notice links: the install page's Updates section (the installer updates the member's existing copy).
+ *  No language from containers before v3: Hebrew, the add-on's default. */
+function getCodeDownloadUrl(lang) { return getDocsUrl('install', lang || 'he') + '#updates'; }
 function getHelpVideoUrl() { return HELP_VIDEO_URL; }
 /** URL of a member documentation page ('about' | 'data' | 'install' | 'guide') in the member's language ('he', else English); '' if unknown. */
 function getDocsUrl(page, lang) {
@@ -1341,6 +1342,15 @@ function sendFollowup(payload) {
   };
 }
 
+/** The To/Cc a follow-up WILL go to (same rule as sendFollowup), for the confirmation card; null if it cannot be worked out. */
+function followupRoute(threadId, expected) {
+  try {
+    const thread = GmailApp.getThreadById(threadId);
+    const msgs = thread ? realMessages_(thread) : [];
+    return msgs.length ? followupRecipients(msgs[msgs.length - 1], getMyAddresses(), expected) : null;
+  } catch (e) { return null; }
+}
+
 /** To = the registered recipients (fallback: derived from the last message); Cc = everyone else on it. Never yourself, never no-reply addresses. */
 function followupRecipients(last, addrs, expected) {
   const uniq = a => Array.from(new Set(a));
@@ -1909,7 +1919,7 @@ UI_STRINGS.en = {
   'app.name': 'IMA Reply Tracking',
   'saved': 'Saved.',
   'days.one': '{0} day', 'days.many': '{0} days',
-  'ver.container': "Add-on file: you're on {0}, latest is {1} — {2}download the update{3}.",
+  'ver.container': "A new version of the add-on is out: you have {0}, the latest is {1}. {2}How to update (one command, nothing is lost){3}.",
   'ver.library': "Shared logic: you're on library {0}, latest is {1} — {2}open your script editor{3}, then Editor → Libraries → select version {4}.",
   'home.paused': 'Uploads are <b>paused</b>: the log gateway requires add-on {0} / library {1} (you have {2} / {3}). Your events are safe on this device; update, then they upload.',
   'home.newHeader': 'New to log',
@@ -1961,7 +1971,7 @@ UI_STRINGS.en = {
   'tagdef.unhelpful': 'A partial or general answer: it touches your question but does not resolve it.',
   'tagdef.non-answer': 'Only confirms receipt, or refers you on without substance: "received", "forwarded for handling", an auto-reply.',
   'tagdef.refusal': "An explicit refusal to help (for example: it is not the union's role).",
-  'lbl.from': 'From:', 'lbl.to': 'To:', 'lbl.subject': 'Subject:', 'lbl.subjectField': 'Subject', 'lbl.noText': '(no text)', 'lbl.noSubject': '(no subject)',
+  'lbl.from': 'From:', 'lbl.to': 'To:', 'lbl.cc': 'Cc:', 'lbl.subject': 'Subject:', 'lbl.subjectField': 'Subject', 'lbl.noText': '(no text)', 'lbl.noSubject': '(no subject)',
   'lbl.yourLast': 'Your last message', 'lbl.theirLast': 'Their last message',
   'status.title': 'Ignored or resolved?',
   'statushelp.never_replied': 'Nobody from the union has replied to this inquiry.',
@@ -2164,7 +2174,7 @@ UI_STRINGS.he = {
   'app.name': 'מעקב תשובות הר"י',
   'saved': 'נשמר.',
   'days.one': 'יום אחד', 'days.many': '{0} ימים',
-  'ver.container': 'קובץ התוסף: אצלכם {0}, העדכני הוא {1} — {2}להורדת העדכון{3}.',
+  'ver.container': 'יצאה גרסה חדשה של התוסף: אצלכם {0}, העדכנית היא {1}. {2}איך מעדכנים (פקודה אחת, שום דבר לא אובד){3}.',
   'ver.library': 'הלוגיקה המשותפת: אצלכם גרסה {0}, העדכנית היא {1} — {2}לפתוח את עורך הסקריפט{3}, ואז Editor → Libraries → לבחור גרסה {4}.',
   'home.paused': 'ההעלאות <b>מושהות</b>: שער הרישום דורש תוסף {0} / ספרייה {1} (אצלכם {2} / {3}). האירועים שמורים במכשיר הזה; אחרי העדכון הם יעלו.',
   'home.newHeader': 'ממתין לכם',
@@ -2216,7 +2226,7 @@ UI_STRINGS.he = {
   'tagdef.unhelpful': 'מענה חלקי או כללי: נוגע בשאלה אבל לא פותר אותה.',
   'tagdef.non-answer': 'רק אישור קבלה, או הפניה בלי תוכן: "התקבל", "הועבר לטיפול", מענה אוטומטי.',
   'tagdef.refusal': 'סירוב מפורש לעזור (למשל: זה לא תפקידה של הר"י).',
-  'lbl.from': 'מאת:', 'lbl.to': 'אל:', 'lbl.subject': 'נושא:', 'lbl.subjectField': 'נושא ההודעה', 'lbl.noText': '(אין טקסט)', 'lbl.noSubject': '(ללא נושא)',
+  'lbl.from': 'מאת:', 'lbl.to': 'אל:', 'lbl.cc': 'עותק:', 'lbl.subject': 'נושא:', 'lbl.subjectField': 'נושא ההודעה', 'lbl.noText': '(אין טקסט)', 'lbl.noSubject': '(ללא נושא)',
   'lbl.yourLast': 'ההודעה האחרונה שלכם', 'lbl.theirLast': 'ההודעה האחרונה שלהם',
   'status.title': 'התעלמות או טופל?',
   'statushelp.never_replied': 'אף אחד מהר"י לא ענה לפנייה הזו.',

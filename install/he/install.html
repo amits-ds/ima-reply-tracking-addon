@@ -142,13 +142,16 @@
 
   <details id="reinstall">
     <summary>מחשב חדש, או התקנה מחדש</summary>
-    <p>הריצו שוב את פקודת ההתקנה (אותה פקודה כמו בפעם הראשונה). כל התקנה במחשב נוסף נחשבת עותק חדש של התוסף; יותר מ-5 בתוך 90 יום משהים את החברות לבדיקה. במסך הפתיחה האחרון לחצו <b class="ui" data-key="wel.restore">שחזור ההיסטוריה שלי</b>, או מאוחר יותר: <b class="ui" data-key="menu.settings">הגדרות</b> ← <b class="ui" data-key="set.advanced">מתקדם</b> ← <b class="ui" data-key="settings.restore">שחזור ההיסטוריה ממאגר הנתונים</b>. ההתכתבויות שכבר עקבתם אחריהן חוזרות, כך שלא תישאלו עליהן פעמיים. מפתח ה-Gemini, השם שלכם ובחירות הסגנון לא משוחזרים: הזינו אותם שוב.</p>
+    <p>הריצו שוב את פקודת ההתקנה (אותה פקודה כמו בפעם הראשונה), עם אותו חשבון Google. היא מוצאת את עותק התוסף שכבר יש לכם בחשבון ומעדכנת אותו, בכל מחשב, כך שלא צריך שום דבר נוסף. רק אם העותק הזה נמחק היא יוצרת עותק חדש; עותק חדש נספר במגבלה (יותר מ-5 בתוך 90 יום משהים את החברות לבדיקה), ואז במסך הפתיחה האחרון לחצו <b class="ui" data-key="wel.restore">שחזור ההיסטוריה שלי</b>, או מאוחר יותר: <b class="ui" data-key="menu.settings">הגדרות</b> ← <b class="ui" data-key="set.advanced">מתקדם</b> ← <b class="ui" data-key="settings.restore">שחזור ההיסטוריה ממאגר הנתונים</b>. ההתכתבויות שכבר עקבתם אחריהן חוזרות, כך שלא תישאלו עליהן פעמיים. מפתח ה-Gemini, השם שלכם ובחירות הסגנון לא משוחזרים: הזינו אותם שוב.</p>
   </details>
 
   <details id="updates">
     <summary>עדכונים</summary>
     <p>כמעט כל עדכון מגיע אליכם מעצמו, בלי שתצטרכו לעשות דבר. אם החלונית נראית ישנה אחרי עדכון, בחרו Refresh בתפריט החלונית (⋮).</p>
-    <p>לעיתים רחוקות משתנה גם הקובץ של התוסף עצמו. אז התוסף מציג הודעה עם קישור להורדה. הדרך הפשוטה לעדכן היא להריץ שוב את פקודת ההתקנה; היא מעדכנת את העותק הקיים שלכם.</p>
+    <p>לעיתים רחוקות משתנה גם הקובץ של התוסף עצמו. אז התוסף מציג הודעה עם קישור לכאן. כדי לעדכן, הריצו שוב את פקודת ההתקנה, בכל מחשב, והתחברו עם אותו חשבון Google:</p>
+      <div class="cmd" dir="ltr"><pre id="upd-win">$r=Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/amits-ds/ima-reply-tracking-addon/main/install/install.ps1'; &amp; ([scriptblock]::Create([Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray())))</pre><button type="button" data-copy="upd-win" data-done="הועתק">העתקה</button></div>
+      <div class="cmd" dir="ltr"><pre id="upd-mac">curl -fsSL https://raw.githubusercontent.com/amits-ds/ima-reply-tracking-addon/main/install/install.sh -o "$HOME/reply-tracking-install.sh" &amp;&amp; bash "$HOME/reply-tracking-install.sh"</pre><button type="button" data-copy="upd-mac" data-done="הועתק">העתקה</button></div>
+    <p>היא מוצאת את עותק התוסף שלכם ומעדכנת אותו. לא צריך לחזור על הלחיצות ב-Gmail או על מסכי הפתיחה, ושום דבר ששמרתם לא אובד. כשמופיע <code>Done</code>, טענו מחדש את Gmail ‏(F5).</p>
   </details>
 
   <details id="uninstall">
@@ -165,6 +168,8 @@
   <footer>העמוד הזה לא שולח שום מידע ואין בו עוגיות או כלי מעקב. עודכן לאחרונה: 25 בנובמבר 2026.</footer>
 </main>
 <script>
+// A link to a folded section (the add-on's update notice links to #updates) opens it.
+(function () { var d = location.hash && document.getElementById(location.hash.slice(1)); if (d && d.tagName === 'DETAILS') d.open = true; })();
 document.querySelectorAll('button[data-copy]').forEach(function (b) {
   b.addEventListener('click', function () {
     var text = document.getElementById(b.dataset.copy).textContent, label = b.textContent;

@@ -211,7 +211,36 @@ function sanity(files) {
   if (!lib || lib.userSymbol !== 'ReplyTrackingLib' || /PASTE_/.test(lib.libraryId || '')) throw new Fatal('The downloaded add-on is not configured yet.', 'Tell the organizer.');
   if (!/ReplyTrackingLib\./.test(files.code) || files.code.length < 20000) throw new Fatal('The downloaded add-on file looks wrong.', 'Tell the organizer.');
 }
+/**
+ * The member's existing add-on projects, newest first, found by title in their Drive: on another computer (or after the local state
+ * was lost) the installer then updates that copy instead of creating a second one (a new copy is a new OAuth client = a new "copy"
+ * for the gateway's limit, with empty add-on storage). clasp's sign-in may list file names (drive.metadata.readonly). Never throws:
+ * on any problem it returns [] and the installer creates a project as before.
+ */
+async function findExistingProjects() {
+  try {
+    const t = readTokens();
+    const body = new URLSearchParams({ client_id: t.client_id, client_secret: t.client_secret, refresh_token: t.refresh_token, grant_type: 'refresh_token' });
+    const tok = await (await fetch('https://oauth2.googleapis.com/token', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body })).json();
+    if (!tok.access_token) return [];
+    const q = "mimeType='application/vnd.google-apps.script' and name='" + CONFIG.projectTitle.replace(/'/g, "\\'") + "' and 'me' in owners and trashed=false";
+    const url = 'https://www.googleapis.com/drive/v3/files?pageSize=10&orderBy=modifiedTime%20desc&fields=files(id,modifiedTime)&q=' + encodeURIComponent(q);
+    const res = await fetch(url, { headers: { Authorization: 'Bearer ' + tok.access_token } });
+    const j = await res.json();
+    logOnly('existing projects: HTTP ' + res.status + ' ' + JSON.stringify(j).slice(0, 500));
+    return res.ok && Array.isArray(j.files) ? j.files : [];
+  } catch (e) { logOnly('existing projects: ' + e); return []; }
+}
 async function ensureProject(state) {
+  if (!state.scriptId && !FLAG.dry) {
+    const found = await findExistingProjects();
+    if (found.length) {
+      state.scriptId = found[0].id;
+      saveState(state);
+      say('  found your add-on in your Google account' + (found.length > 1 ? ' (the most recently changed of ' + found.length + ' copies)' : '') + ': it will be updated');
+    }
+  }
+  state.updating = !!state.scriptId;
   step(state.scriptId ? 'Updating your add-on project' : 'Creating your add-on project');
   const files = await getFiles();
   sanity(files);
@@ -295,6 +324,12 @@ async function main() {
   await ensureProject(state);
   await signOut();
 
+  if (state.updating) {
+    say('\nUpdated. Your add-on keeps everything you saved, and you do not need to install it in Gmail again.');
+    say('Reload Gmail (F5) to use the new version. Your add-on project: https://script.google.com/home/projects/' + state.scriptId + '/edit');
+    say('\nDone. You can close this window.');
+    return;
+  }
   step('Last two clicks (Google requires you to do these yourself)');
   const url = state.scriptId ? 'https://script.google.com/home/projects/' + state.scriptId + '/edit' : '(project address)';
   say('\n  Your add-on project: ' + url);

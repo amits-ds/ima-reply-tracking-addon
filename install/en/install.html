@@ -142,13 +142,16 @@
 
   <details id="reinstall">
     <summary>A new computer, or installing again</summary>
-    <p>Run the installer command again (the same command as the first time). Each install on another computer counts as a new copy of the add-on; more than 5 within 90 days pauses your membership for a review. On the last welcome screen press <b class="ui" data-key="wel.restore">Restore my history</b>, or later: <b class="ui" data-key="menu.settings">Settings</b> → <b class="ui" data-key="set.advanced">Advanced</b> → <b class="ui" data-key="settings.restore">Restore history from the log</b>. The conversations you already tracked come back, so you are not asked about them twice. Your Gemini key, your name and your style choices are not restored: enter them again.</p>
+    <p>Run the installer command again (the same command as the first time), with the same Google account. It finds the add-on copy you already have in your Google account and updates it, on any computer, so nothing else is needed. Only if that copy was deleted does it create a new one; a new copy counts toward the limit (more than 5 within 90 days pauses your membership for a review), and then on the last welcome screen press <b class="ui" data-key="wel.restore">Restore my history</b>, or later: <b class="ui" data-key="menu.settings">Settings</b> → <b class="ui" data-key="set.advanced">Advanced</b> → <b class="ui" data-key="settings.restore">Restore history from the log</b>. The conversations you already tracked come back, so you are not asked about them twice. Your Gemini key, your name and your style choices are not restored: enter them again.</p>
   </details>
 
   <details id="updates">
     <summary>Updates</summary>
     <p>Almost every update reaches you by itself: you don't need to do anything. If the panel looks old after an update, use Refresh in the panel's menu (⋮).</p>
-    <p>Rarely, the add-on's own file changes too. Then the add-on shows a notice with a download link. The simplest way to update is to run your installer command again; it updates your existing copy.</p>
+    <p>Rarely, the add-on's own file changes too. Then the add-on shows a notice that links here. To update, run the installer command again, on any computer, signing in with the same Google account:</p>
+      <div class="cmd" dir="ltr"><pre id="upd-win">$r=Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/amits-ds/ima-reply-tracking-addon/main/install/install.ps1'; &amp; ([scriptblock]::Create([Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray())))</pre><button type="button" data-copy="upd-win">Copy</button></div>
+      <div class="cmd" dir="ltr"><pre id="upd-mac">curl -fsSL https://raw.githubusercontent.com/amits-ds/ima-reply-tracking-addon/main/install/install.sh -o "$HOME/reply-tracking-install.sh" &amp;&amp; bash "$HOME/reply-tracking-install.sh"</pre><button type="button" data-copy="upd-mac">Copy</button></div>
+    <p>It finds your copy of the add-on and updates it. You don't repeat the clicks in Gmail or the welcome screens, and nothing you saved is lost. When it says <code>Done</code>, reload Gmail (F5).</p>
   </details>
 
   <details id="uninstall">
@@ -165,6 +168,8 @@
   <footer>This page sends no information anywhere and uses no cookies or trackers. Last updated: 25 November 2026.</footer>
 </main>
 <script>
+// A link to a folded section (the add-on's update notice links to #updates) opens it.
+(function () { var d = location.hash && document.getElementById(location.hash.slice(1)); if (d && d.tagName === 'DETAILS') d.open = true; })();
 document.querySelectorAll('button[data-copy]').forEach(function (b) {
   b.addEventListener('click', function () {
     var text = document.getElementById(b.dataset.copy).textContent, label = b.textContent;
