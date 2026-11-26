@@ -14,6 +14,7 @@
       <a href="data.html">המידע שלכם</a>
       <a href="install.html" aria-current="page">התקנה</a>
       <a href="guide.html">איך משתמשים</a>
+      <a href="trust.html">למה לסמוך עלינו?</a>
     </nav>
     <a class="lang" href="../en/install.html" hreflang="en" lang="en">English</a>
   </div>
@@ -22,7 +23,7 @@
   <p class="banner"><b>מהדורת פיילוט.</b> אם משהו בעמוד לא ברור או לא תואם את מה שאתם רואים, זה בדיוק המשוב שאנחנו צריכים.</p>
 
   <h1>התקנת התוסף, שלב אחר שלב</h1>
-  <p class="lead">כ-15–20 דקות, במחשב, פעם אחת. עברו על השלבים לפי הסדר; בכל שלב כתוב מה תראו.</p>
+  <p class="lead">כמה דקות עם תוכנת ההתקנה (כ-15 דקות באופן ידני), במחשב, פעם אחת. עברו על השלבים לפי הסדר; בכל שלב כתוב מה תראו.</p>
 
   <h2 id="video">צפו בתהליך ההתקנה</h2>
   <div class="vids">
@@ -35,7 +36,7 @@
   <ul>
     <li><b>מחשב Windows או Mac</b> עם Chrome או Edge. התוסף עובד רק במחשב, לא בטלפון.</li>
     <li><b>חשבון ה-Gmail שממנו אתם כותבים להר"י</b>. אם יש לכם כמה חשבונות Google, בחרו בו בכל פעם שגוגל שואלת.</li>
-    <li>כדאי לקרוא קודם את <a href="data.html">המידע שלכם</a>: מה התוסף שולח, ומה הוא אף פעם לא שולח.</li>
+    <li>כדאי לקרוא קודם את <a href="data.html">המידע שלכם</a>: מה התוסף שולח, ומה הוא אף פעם לא שולח (ואת <a href="trust.html">למה לסמוך עלינו?</a> אם תרצו לבדוק את הקוד בעצמכם).</li>
   </ul>
 
   <h2 id="installer">שלב 1: הרצת תוכנת ההתקנה</h2>
@@ -45,6 +46,10 @@
         <li><b>Windows:</b> לחצו על התחל (או על מקש Windows), הקלידו <code>PowerShell</code>, ולחצו על <b>Windows PowerShell</b>. נפתח חלון כחול או שחור עם סמן מהבהב.</li>
         <li><b>Mac:</b> לחצו <span class="ltr">⌘</span>+רווח, הקלידו <code>Terminal</code>, ולחצו Enter. נפתח חלון לבן או שחור עם סמן מהבהב.</li>
       </ul>
+      <div class="shots">
+        <figure class="shot"><img src="../img/s1-open-win.png" alt="תפריט התחל ב-Windows בחיפוש PowerShell ולחיצה על Open" loading="lazy"><figcaption>Windows: התחל ← PowerShell ← Open</figcaption></figure>
+        <figure class="shot"><img src="../img/s1-open-mac.png" alt="חיפוש Spotlight ב-Mac עבור Terminal" loading="lazy"><figcaption>Mac: Spotlight ← Terminal</figcaption></figure>
+      </div>
     </li>
     <li><b>העתיקו את הפקודה שמתאימה למחשב שלכם</b> (בכפתור "העתקה" שמתחתיה):
       <p><b>Windows</b></p>
@@ -53,18 +58,31 @@
       <div class="cmd"><pre class="ltr" id="cmd-mac">curl -fsSL https://raw.githubusercontent.com/amits-ds/ima-reply-tracking-addon/main/install/install.sh -o "$HOME/reply-tracking-install.sh" &amp;&amp; bash "$HOME/reply-tracking-install.sh"</pre><button type="button" data-copy="cmd-mac" data-done="הועתק">העתקה</button></div>
     </li>
     <li><b>הדביקו אותה בחלון הפקודות ולחצו Enter.</b> ב-Windows: לחיצה ימנית בתוך החלון (או Ctrl+V). ב-Mac: <span class="ltr">⌘</span>+V.
-      תוכנת ההתקנה עוברת עכשיו שישה שלבים ממוספרים, מ-<code>[1/6]</code> עד <code>[6/6]</code>. בפעם הראשונה היא מורידה עותק פרטי של כלי שהיא צריכה (<span class="ltr">Node.js</span>, בגודל <span class="ltr">30–40 MB</span>, לתיקייה אחת; שום דבר לא מותקן במערכת), אז המתינו דקה.</li>
+      תוכנת ההתקנה עוברת עכשיו שישה שלבים ממוספרים, מ-<code>[1/6]</code> עד <code>[6/6]</code>. בפעם הראשונה היא מורידה עותק פרטי של כלי שהיא צריכה (<span class="ltr">Node.js</span>, בגודל <span class="ltr">30–40 MB</span>, לתיקייה אחת; שום דבר לא מותקן במערכת), אז המתינו דקה.
+      <div class="shots">
+        <figure class="shot"><img src="../img/s1-run-win.png" alt="חלון Windows PowerShell מריץ את שלבים 1 ו-2 של תוכנת ההתקנה" loading="lazy"><figcaption>Windows PowerShell</figcaption></figure>
+        <figure class="shot"><img src="../img/s1-run-mac.png" alt="חלון Terminal ב-Mac מריץ את שלבים 1 ו-2 של תוכנת ההתקנה" loading="lazy"><figcaption>Mac Terminal</figcaption></figure>
+      </div>
+    </li>
     <li><b>התחברות לגוגל</b> (<code>[2/6]</code>). נפתחת לשונית בדפדפן.
       <ol type="a">
-        <li>בחרו את חשבון ה-Gmail שממנו אתם כותבים להר"י.</li>
-        <li>גוגל מציגה עמוד של כלי בשם <b>clasp</b> שמבקש כמה הרשאות. השאירו הכול מסומן ולחצו <b>Allow</b> (גללו למטה אם הכפתור לא נראה).</li>
+        <li>בחרו את חשבון ה-Gmail שממנו אתם כותבים להר"י.
+          <figure class="shot"><img src="../img/s1-account.png" alt="מסך בחירת חשבון Google עבור clasp" loading="lazy"></figure>
+        </li>
+        <li>גוגל מציגה עמוד של כלי בשם <b>clasp</b> שמבקש כמה הרשאות. השאירו הכול מסומן ולחצו <b>Allow</b> (גללו למטה אם הכפתור לא נראה).
+          <figure class="shot"><img src="../img/s1-consent.png" alt="מסך ההרשאות של גוגל עבור clasp עם הדגשה על הכפתור Allow" loading="lazy"></figure>
+        </li>
         <li>הלשונית כותבת שאפשר לסגור אותה. חזרו לחלון הפקודות.</li>
       </ol>
       <div class="note">clasp הוא כלי של גוגל ליצירת פרויקטים של Apps Script. תוכנת ההתקנה משתמשת בו רק כדי ליצור את העותק שלכם של התוסף, ומבטלת את ההתחברות בסוף (<code>[5/6]</code>). היא לא קוראת את הדואר שלכם. <a href="#what-it-does">מה תוכנת ההתקנה עושה</a></div>
     </li>
-    <li><b>רק אם נפתח עמוד על "Google Apps Script API"</b> (בפעם הראשונה בחשבון): לחצו על המתג כך שיהיה <b>On</b>, חזרו לחלון הפקודות והמתינו. לפעמים לוקח לגוגל כמה דקות לזהות את השינוי; תוכנת ההתקנה ממשיכה לנסות בעצמה.</li>
+    <li><b>רק אם נפתח עמוד על "Google Apps Script API"</b> (בפעם הראשונה בחשבון): לחצו על המתג כך שיהיה <b>On</b>, חזרו לחלון הפקודות והמתינו. לפעמים לוקח לגוגל כמה דקות לזהות את השינוי; תוכנת ההתקנה ממשיכה לנסות בעצמה.
+      <figure class="shot"><img src="../img/s1-api.png" alt="עמוד ההגדרות של Apps Script עם המתג Google Apps Script API במצב On" loading="lazy"></figure>
+    </li>
     <li><b>תוכנת ההתקנה מסיימת</b> (<code>[6/6]</code>): היא פותחת בדפדפן את פרויקט התוסף החדש שלכם ומציגה את שתי הלחיצות האחרונות (שלב 2 למטה).
-      אחר כך היא שואלת <code class="ltr">Open the Gemini key page in your browser now? (y/N)</code>: הקלידו <code>y</code> ולחצו Enter (תצטרכו אותו בשלב 3). כשמופיע <code>Done</code> אפשר לסגור את חלון הפקודות.</li>
+      אחר כך היא שואלת <code class="ltr">Open the Gemini key page in your browser now? (y/N)</code>: הקלידו <code>y</code> ולחצו Enter (תצטרכו אותו בשלב 3). כשמופיע <code>Done</code> אפשר לסגור את חלון הפקודות.
+      <figure class="shot"><img src="../img/s1-done.png" alt="חלון ההתקנה בסיום שלב 6 עם הקלדת y בפנייה ל-Gemini והודעת Done" loading="lazy"></figure>
+    </li>
   </ol>
   <p class="muted">גוגל תשלח לכם מייל בנוסח "You allowed clasp access…", ומאוחר יותר הודעה דומה על העותק שלכם. שתיהן רגילות.</p>
 
@@ -72,17 +90,29 @@
   <ol>
     <li><b>התקנה.</b> בעמוד פרויקט התוסף שנפתח (Apps Script, בשם "IMA Reply Tracking"):
       <ol type="a">
-        <li>לחצו על הכפתור הכחול <b>Deploy</b> בפינה העליונה, ואז <b>Test deployments</b>.</li>
-        <li>נפתח חלון. המתינו כמה שניות עד שייטען, לחצו <b>Install</b> ואז <b>Done</b>.</li>
+        <li>לחצו על הכפתור הכחול <b>Deploy</b> בפינה העליונה, ואז <b>Test deployments</b>.
+          <figure class="shot"><img src="../img/s2-deploy.png" alt="עורך Apps Script עם הדגשה על הכפתור Deploy ואפשרות Test deployments" loading="lazy"></figure>
+        </li>
+        <li>נפתח חלון. המתינו כמה שניות עד שייטען, לחצו <b>Install</b> ואז <b>Done</b>.
+          <figure class="shot"><img src="../img/s2-install-dlg.png" alt="חלון Test deployments עם הדגשה על הכפתורים Install ו-Done" loading="lazy"></figure>
+        </li>
       </ol>
     </li>
     <li><b>אישור.</b>
       <ol type="a">
         <li>פתחו את Gmail (באותו חשבון) ולחצו F5 לרענון.</li>
-        <li>פתחו מייל כלשהו. בקצה של Gmail יש עמודה צרה של סמלים; לחצו על סמל התוסף החדש. (אם העמודה לא נראית, לחצו על החץ הקטן בפינה התחתונה.)</li>
-        <li>בחלונית מופיע <b>Authorize access</b>: לחצו עליו ובחרו את החשבון שלכם.</li>
-        <li>גוגל תציג "Google hasn't verified this app". זה צפוי: זה העותק האישי שלכם, לא אפליקציה מחנות. לחצו <b>Advanced</b>, ואז <b>Go to IMA Reply Tracking (unsafe)</b>.</li>
-        <li>גוגל מציגה מה התוסף רשאי לעשות. אם יש תיבות סימון, סמנו <b>Select all</b>. לחצו <b>Continue</b> או <b>Allow</b>. <a href="data.html#permissions">למה משמשת כל הרשאה</a></li>
+        <li>פתחו מייל כלשהו. בקצה של Gmail יש עמודה צרה של סמלים; לחצו על סמל התוסף החדש. (אם העמודה לא נראית, לחצו על החץ הקטן בפינה התחתונה.)
+          <figure class="shot"><img src="../img/s2-gmail-icon-he.png" alt="תיבת Gmail בעברית עם מייל פתוח והדגשה על סמל התוסף בעמודת הצד" loading="lazy"></figure>
+        </li>
+        <li>בחלונית מופיע <b>Authorize access</b>: לחצו עליו ובחרו את החשבון שלכם.
+          <figure class="shot panel"><img src="../img/s2-authorize-he.png" alt="חלונית הצד של התוסף המציגה את הכפתור Authorize access" loading="lazy"></figure>
+        </li>
+        <li>גוגל תציג "Google hasn't verified this app". זה צפוי: זה העותק האישי שלכם, לא אפליקציה מחנות. לחצו <b>Advanced</b>, ואז <b>Go to IMA Reply Tracking (unsafe)</b>.
+          <figure class="shot"><img src="../img/s2-unverified.png" alt="אזהרת Google hasn't verified this app עם הדגשה על Advanced ועל Go to IMA Reply Tracking (unsafe)" loading="lazy"></figure>
+        </li>
+        <li>גוגל מציגה מה התוסף רשאי לעשות. אם יש תיבות סימון, סמנו <b>Select all</b>. לחצו <b>Continue</b> או <b>Allow</b>. <a href="data.html#permissions">למה משמשת כל הרשאה</a>
+          <figure class="shot"><img src="../img/s2-allow.png" alt="מסך ההרשאות של גוגל עבור IMA Reply Tracking עם הדגשה על Select all ו-Allow" loading="lazy"></figure>
+        </li>
       </ol>
     </li>
   </ol>
@@ -93,20 +123,36 @@
   <div class="note"><b>פרטיות, לקרוא לפני שממשיכים.</b> עם מפתח, טקסט התשובות של הר"י (וההודעות שלכם באותן התכתבויות) נשלח ל-Gemini של גוגל. במסלול החינמי, גוגל רשאית להשתמש במה שנשלח כדי לשפר את המוצרים שלה. תשובות עלולות לכלול פרטים אישיים או רפואיים. אם זה בעייתי בשבילכם, דלגו על השלב הזה: כל השאר עובד, ואתם מדרגים את התשובות בעצמכם. <a href="data.html#gemini">מה Gemini מקבל</a></div>
   <ol>
     <li>פתחו את <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener"><span class="ltr">aistudio.google.com/apikey</span></a> (או את הלשונית שתוכנת ההתקנה פתחה). התחברו בחשבון Google כלשהו; הכי פשוט באותו חשבון.</li>
-    <li><b>רק בפעם הראשונה:</b> מופיע עמוד "Welcome to Google AI Studio". סמנו את התיבה שמאשרת שאתם מעל גיל 18 (התיבה השנייה, למיילים, לבחירתכם) ולחצו <b>Continue</b>.</li>
-    <li>בעמוד <b>API Keys</b> לחצו <b>Create API key</b> בפינה העליונה.</li>
-    <li>נפתח חלון "Create a new key". השאירו את השם כמו שהוא. בבחירת הפרויקט השאירו את מה שנבחר (אם הרשימה ריקה, בחרו ליצור פרויקט חדש; כל שם מתאים). לחצו <b>Create key</b>.</li>
-    <li>המפתח החדש מופיע ברשימה (רואים רק את התווים האחרונים שלו). לחצו על סמל ההעתקה בשורה שלו; המפתח כולו, קוד ארוך שמתחיל ב-<code>AIza</code>, מועתק. השאירו את הלשונית פתוחה עד שתדביקו אותו (שלב 4).</li>
+    <li><b>רק בפעם הראשונה:</b> מופיע עמוד "Welcome to Google AI Studio". סמנו את התיבה שמאשרת שאתם מעל גיל 18 (התיבה השנייה, למיילים, לבחירתכם) ולחצו <b>Continue</b>.
+      <figure class="shot"><img src="../img/s3-aistudio-welcome.png" alt="מסך הפתיחה Welcome to Google AI Studio עם הדגשה על תיבת אישור הגיל ועל Continue" loading="lazy"></figure>
+    </li>
+    <li>בעמוד <b>API Keys</b> לחצו <b>Create API key</b> בפינה העליונה.
+      <figure class="shot"><img src="../img/s3-aistudio-keys.png" alt="עמוד API Keys ב-Google AI Studio עם הדגשה על Create API key" loading="lazy"></figure>
+    </li>
+    <li>נפתח חלון "Create a new key". השאירו את השם כמו שהוא. בבחירת הפרויקט השאירו את מה שנבחר (אם הרשימה ריקה, בחרו ליצור פרויקט חדש; כל שם מתאים). לחצו <b>Create key</b>.
+      <figure class="shot"><img src="../img/s3-aistudio-create.png" alt="חלון Create a new key עם הדגשה על הכפתור Create key" loading="lazy"></figure>
+    </li>
+    <li>המפתח החדש מופיע ברשימה (רואים רק את התווים האחרונים שלו). לחצו על סמל ההעתקה בשורה שלו; המפתח כולו, קוד ארוך שמתחיל ב-<code>AIza</code>, מועתק. השאירו את הלשונית פתוחה עד שתדביקו אותו (שלב 4).
+      <figure class="shot"><img src="../img/s3-aistudio-copy.png" alt="רשימת API Keys עם המפתח החדש והדגשה על סמל ההעתקה בשורה שלו" loading="lazy"></figure>
+    </li>
   </ol>
   <p class="muted">אל תשתפו את המפתח עם אף אחד. אם הוא דלף, מחקו אותו באותו עמוד וצרו חדש.</p>
 
   <h2 id="first-run">שלב 4: מסכי הפתיחה</h2>
   <p>חזרו ל-Gmail ולחלונית התוסף. בפעם הראשונה מופיעים ארבעה מסכים קצרים.</p>
   <ol>
-    <li><b class="ui" data-key="wel.title">ברוכים הבאים</b>: בחרו <b class="ui" data-key="wel.lang">שפה</b> והקלידו <b class="ui" data-key="wel.name">השם שלכם, לחתימה במיילים</b>. לחצו <b class="ui" data-key="btn.continue">המשך</b>.</li>
-    <li><b class="ui" data-key="profile.header">קצת עליכם (רשות)</b>: שלב בקריירה, תחום, מקום עבודה. בכל שאלה אפשר לבחור "לא רוצה לציין". לחצו <b class="ui" data-key="triage.save">שמירה והמשך</b>, או <b class="ui" data-key="btn.skip2">דילוג</b>. <a href="data.html#profile">למה אנחנו שואלים</a></li>
-    <li><b class="ui" data-key="wel.aiTitle">הצעות Gemini (רשות)</b>: לחצו בשדה <b class="ui" data-key="settings.keyField">מפתח Gemini API</b>, הדביקו את המפתח משלב 3 (Ctrl+V, או <span class="ltr">⌘</span>+V ב-Mac), ולחצו <b class="ui" data-key="btn.continue">המשך</b>. אם דילגתם על שלב 3, לחצו <b class="ui" data-key="btn.skip2">דילוג</b>.</li>
-    <li><b class="ui" data-key="wel.histTitle">ההיסטוריה שלכם</b>: התקנה ראשונה? לחצו <b class="ui" data-key="wel.fresh">זו הפעם הראשונה שלי</b>. השתמשתם בתוסף בעבר? לחצו <b class="ui" data-key="wel.restore">שחזור ההיסטוריה שלי</b>.</li>
+    <li><b class="ui" data-key="wel.title">ברוכים הבאים</b>: בחרו <b class="ui" data-key="wel.lang">שפה</b> והקלידו <b class="ui" data-key="wel.name">השם שלכם, לחתימה במיילים</b>. לחצו <b class="ui" data-key="btn.continue">המשך</b>.
+      <figure class="shot panel"><img src="../img/s4-welcome1-he.png" alt="מסך הפתיחה 1 מתוך 4 עם הדגשה על שדה השם ועל הכפתור המשך" loading="lazy"></figure>
+    </li>
+    <li><b class="ui" data-key="profile.header">קצת עליכם (רשות)</b>: שלב בקריירה, תחום, מקום עבודה. בכל שאלה אפשר לבחור "לא רוצה לציין". לחצו <b class="ui" data-key="triage.save">שמירה והמשך</b>, או <b class="ui" data-key="btn.skip2">דילוג</b>. <a href="data.html#profile">למה אנחנו שואלים</a>
+      <figure class="shot panel"><img src="../img/s4-welcome2-he.png" alt="מסך הפתיחה 2 מתוך 4 המציג את שאלות הפרופיל עם הדגשה על דילוג ושמירה והמשך" loading="lazy"></figure>
+    </li>
+    <li><b class="ui" data-key="wel.aiTitle">הצעות Gemini (רשות)</b>: לחצו בשדה <b class="ui" data-key="settings.keyField">מפתח Gemini API</b>, הדביקו את המפתח משלב 3 (Ctrl+V, או <span class="ltr">⌘</span>+V ב-Mac), ולחצו <b class="ui" data-key="btn.continue">המשך</b>. אם דילגתם על שלב 3, לחצו <b class="ui" data-key="btn.skip2">דילוג</b>.
+      <figure class="shot panel"><img src="../img/s4-welcome3-he.png" alt="מסך הפתיחה 3 מתוך 4 עם הדגשה על שדה מפתח Gemini API ועל הכפתור המשך" loading="lazy"></figure>
+    </li>
+    <li><b class="ui" data-key="wel.histTitle">ההיסטוריה שלכם</b>: התקנה ראשונה? לחצו <b class="ui" data-key="wel.fresh">זו הפעם הראשונה שלי</b>. השתמשתם בתוסף בעבר? לחצו <b class="ui" data-key="wel.restore">שחזור ההיסטוריה שלי</b>.
+      <figure class="shot panel"><img src="../img/s4-welcome4-he.png" alt="מסך הפתיחה 4 מתוך 4 עם הדגשה על זו הפעם הראשונה שלי" loading="lazy"></figure>
+    </li>
   </ol>
   <p><b>סיימתם.</b> מעכשיו התוסף בודק את תיבת הדואר בעצמו (כל שעתיים, ובדיקה מלאה פעם ביום). הבא: <a href="guide.html">איך משתמשים</a>.</p>
   <p class="muted">הוספה או החלפה של מפתח Gemini מאוחר יותר: תפריט (⋮) ← <b class="ui" data-key="menu.settings">הגדרות</b> ← <b class="ui" data-key="set.keyBtn">מפתח</b> ליד Gemini ← הדבקה בשדה <b class="ui" data-key="settings.keyField">מפתח Gemini API</b> ← <b class="ui" data-key="btn.save">שמירה</b>.</p>
@@ -162,11 +208,18 @@
   <details id="what-it-does">
     <summary>מה תוכנת ההתקנה עושה, ואיך לבדוק</summary>
     <p>תוכנת ההתקנה היא שלושה קובצי טקסט פשוטים שאתם או כל אחד אחר יכולים לקרוא. היא כותבת רק לתיקייה אחת בתיקיית הבית שלכם (<code>.ima-reply-tracking</code>), לא מתקינה דבר ברמת המערכת, אף פעם לא קוראת את הדואר שלכם, ומבטלת את ההתחברות לגוגל בסוף. כל קובץ נבדק מול טביעת אצבע שפורסמה לפני שהוא רץ.</p>
-    <p>הרשימה המלאה, והנחיה מוכנה לבדיקה בעזרת עוזר AI: <a href="https://github.com/amits-ds/ima-reply-tracking-addon/blob/main/install/WHAT_IT_DOES.he.md">מה תוכנת ההתקנה עושה</a>. לגבי התוסף עצמו: <a href="https://github.com/amits-ds/ima-reply-tracking-addon/blob/main/install/WHY_TRUST_US.he.md">למה לסמוך עלינו?</a></p>
+    <p>הרשימה המלאה, והנחיה מוכנה לבדיקה בעזרת עוזר AI: <a href="https://github.com/amits-ds/ima-reply-tracking-addon/blob/main/install/WHAT_IT_DOES.he.md">מה תוכנת ההתקנה עושה</a>. לגבי התוסף עצמו: <a href="trust.html">למה לסמוך עלינו?</a></p>
   </details>
 
-  <footer>העמוד הזה לא שולח שום מידע ואין בו עוגיות או כלי מעקב. עודכן לאחרונה: 25 בנובמבר 2026.</footer>
+  <footer>העמוד הזה לא שולח שום מידע ואין בו עוגיות או כלי מעקב. עודכן לאחרונה: 26 בנובמבר 2026.</footer>
 </main>
+<dialog id="lightbox" aria-label="תמונה מוגדלת">
+  <div class="lb-head">
+    <span class="lb-cap"></span>
+    <button type="button" class="lb-close" aria-label="סגירה">סגירה</button>
+  </div>
+  <img src="" alt="">
+</dialog>
 <script>
 // A link to a folded section (the add-on's update notice links to #updates) opens it.
 (function () { var d = location.hash && document.getElementById(location.hash.slice(1)); if (d && d.tagName === 'DETAILS') d.open = true; })();
@@ -176,6 +229,27 @@ document.querySelectorAll('button[data-copy]').forEach(function (b) {
     navigator.clipboard.writeText(text).then(function () { b.textContent = b.dataset.done || 'Copied'; setTimeout(function () { b.textContent = label; }, 2000); });
   });
 });
+(function () {
+  var dlg = document.getElementById('lightbox');
+  if (!dlg || !dlg.showModal) return;
+  var lbImg = dlg.querySelector('img'), lbCap = dlg.querySelector('.lb-cap');
+  document.querySelectorAll('.shot img').forEach(function (img) {
+    img.title = 'לחצו להגדלה';
+    img.tabIndex = 0;
+    function open() {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      var fig = img.closest('figure');
+      var cap = fig && fig.querySelector('figcaption');
+      lbCap.textContent = cap ? cap.textContent : img.alt;
+      dlg.showModal();
+    }
+    img.addEventListener('click', open);
+    img.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+  });
+  dlg.querySelector('.lb-close').addEventListener('click', function () { dlg.close(); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+})();
 </script>
 </body>
 </html>

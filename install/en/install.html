@@ -14,6 +14,7 @@
       <a href="data.html">Your data</a>
       <a href="install.html" aria-current="page">Install</a>
       <a href="guide.html">Using it</a>
+      <a href="trust.html">Why trust us?</a>
     </nav>
     <a class="lang" href="../he/install.html" hreflang="he" lang="he">עברית</a>
   </div>
@@ -22,7 +23,7 @@
   <p class="banner"><b>Pilot edition.</b> If anything on this page is unclear or does not match what you see, that is exactly the feedback we need.</p>
 
   <h1>Install the add-on, step by step</h1>
-  <p class="lead">About 15–20 minutes, on a computer, once. Follow the steps in order; each one says what you will see.</p>
+  <p class="lead">Several minutes with the installer (~15 minutes manually), on a computer, once. Follow the steps in order; each one says what you will see.</p>
 
   <h2 id="video">Watch the installation</h2>
   <div class="vids">
@@ -35,7 +36,7 @@
   <ul>
     <li>A <b>Windows or Mac computer</b> with Chrome or Edge. The add-on works only on a computer, not on a phone.</li>
     <li>The <b>Gmail account you write to the IMA from</b>. If you have several Google accounts, choose that one every time Google asks.</li>
-    <li>Please read <a href="data.html">Your data</a> first: what the add-on sends, and what it never sends.</li>
+    <li>Please read <a href="data.html">Your data</a> first: what the add-on sends, and what it never sends (and <a href="trust.html">Why trust us?</a> if you want to check the code yourself).</li>
   </ul>
 
   <h2 id="installer">Step 1: run the installer</h2>
@@ -45,6 +46,10 @@
         <li><b>Windows:</b> click Start (or press the Windows key), type <code>PowerShell</code>, and click <b>Windows PowerShell</b>. A blue or black window opens with a blinking cursor.</li>
         <li><b>Mac:</b> press <span class="ltr">⌘</span>+Space, type <code>Terminal</code>, and press Enter. A white or black window opens with a blinking cursor.</li>
       </ul>
+      <div class="shots">
+        <figure class="shot"><img src="../img/s1-open-win.png" alt="Windows Start menu searching for PowerShell and clicking Open" loading="lazy"><figcaption>Windows: Start → PowerShell → Open</figcaption></figure>
+        <figure class="shot"><img src="../img/s1-open-mac.png" alt="Mac Spotlight search for Terminal" loading="lazy"><figcaption>Mac: Spotlight → Terminal</figcaption></figure>
+      </div>
     </li>
     <li><b>Copy the command for your computer</b> (press the Copy button under it):
       <p><b>Windows</b></p>
@@ -53,18 +58,31 @@
       <div class="cmd" dir="ltr"><pre id="cmd-mac">curl -fsSL https://raw.githubusercontent.com/amits-ds/ima-reply-tracking-addon/main/install/install.sh -o "$HOME/reply-tracking-install.sh" &amp;&amp; bash "$HOME/reply-tracking-install.sh"</pre><button type="button" data-copy="cmd-mac">Copy</button></div>
     </li>
     <li><b>Paste it into the command window and press Enter.</b> Windows: right-click inside the window (or press Ctrl+V). Mac: press <span class="ltr">⌘</span>+V.
-      The installer now works through six numbered steps, <code>[1/6]</code> to <code>[6/6]</code>. The first time, it downloads a private copy of a tool it needs (Node.js, 30–40 MB, into one folder; nothing is installed system-wide), so wait a minute.</li>
+      The installer now works through six numbered steps, <code>[1/6]</code> to <code>[6/6]</code>. The first time, it downloads a private copy of a tool it needs (Node.js, 30–40 MB, into one folder; nothing is installed system-wide), so wait a minute.
+      <div class="shots">
+        <figure class="shot"><img src="../img/s1-run-win.png" alt="Windows PowerShell running steps 1 and 2 of the installer" loading="lazy"><figcaption>Windows PowerShell</figcaption></figure>
+        <figure class="shot"><img src="../img/s1-run-mac.png" alt="Mac Terminal running steps 1 and 2 of the installer" loading="lazy"><figcaption>Mac Terminal</figcaption></figure>
+      </div>
+    </li>
     <li><b>Sign in to Google</b> (<code>[2/6]</code>). A browser tab opens.
       <ol type="a">
-        <li>Choose the Gmail account you write to the IMA from.</li>
-        <li>Google shows a page for a tool called <b>clasp</b> that asks for several permissions. Leave everything ticked and press <b>Allow</b> (scroll down if you don't see it).</li>
+        <li>Choose the Gmail account you write to the IMA from.
+          <figure class="shot"><img src="../img/s1-account.png" alt="Google Choose an account screen to continue to clasp" loading="lazy"></figure>
+        </li>
+        <li>Google shows a page for a tool called <b>clasp</b> that asks for several permissions. Leave everything ticked and press <b>Allow</b> (scroll down if you don't see it).
+          <figure class="shot"><img src="../img/s1-consent.png" alt="Google permissions screen for clasp with the Allow button highlighted" loading="lazy"></figure>
+        </li>
         <li>The tab says you can close it. Go back to the command window.</li>
       </ol>
       <div class="note">clasp is Google's own tool for creating Apps Script projects. The installer uses it only to create your own copy of the add-on, and removes the sign-in at the end (<code>[5/6]</code>). It does not read your email. <a href="#what-it-does">What the installer does</a></div>
     </li>
-    <li><b>Only if a page about "Google Apps Script API" opens</b> (first time on an account): click the switch so it turns <b>On</b>, then go back to the command window and wait. Google can take a few minutes to notice; the installer keeps trying by itself.</li>
+    <li><b>Only if a page about "Google Apps Script API" opens</b> (first time on an account): click the switch so it turns <b>On</b>, then go back to the command window and wait. Google can take a few minutes to notice; the installer keeps trying by itself.
+      <figure class="shot"><img src="../img/s1-api.png" alt="Apps Script Settings page with the Google Apps Script API switch turned On" loading="lazy"></figure>
+    </li>
     <li><b>The installer finishes</b> (<code>[6/6]</code>): it opens your new add-on project in the browser and prints the two last clicks (Step 2 below).
-      Then it asks <code>Open the Gemini key page in your browser now? (y/N)</code>: type <code>y</code> and press Enter (you will need it in Step 3). When it says <code>Done</code>, you can close the command window.</li>
+      Then it asks <code>Open the Gemini key page in your browser now? (y/N)</code>: type <code>y</code> and press Enter (you will need it in Step 3). When it says <code>Done</code>, you can close the command window.
+      <figure class="shot"><img src="../img/s1-done.png" alt="Installer command window showing step 6, the Gemini key prompt answered with y, and Done" loading="lazy"></figure>
+    </li>
   </ol>
   <p class="muted">Google emails you "You allowed clasp access…", and later a similar notice for your own copy. Both are normal.</p>
 
@@ -72,17 +90,29 @@
   <ol>
     <li><b>Install.</b> In the add-on project page that opened (Apps Script, titled "IMA Reply Tracking"):
       <ol type="a">
-        <li>Click the blue <b>Deploy</b> button at the top right, then <b>Test deployments</b>.</li>
-        <li>A window opens. Wait a few seconds for it to load, then click <b>Install</b> and then <b>Done</b>.</li>
+        <li>Click the blue <b>Deploy</b> button at the top right, then <b>Test deployments</b>.
+          <figure class="shot"><img src="../img/s2-deploy.png" alt="Apps Script editor with the Deploy button and Test deployments menu item highlighted" loading="lazy"></figure>
+        </li>
+        <li>A window opens. Wait a few seconds for it to load, then click <b>Install</b> and then <b>Done</b>.
+          <figure class="shot"><img src="../img/s2-install-dlg.png" alt="Test deployments window with Install and Done buttons highlighted" loading="lazy"></figure>
+        </li>
       </ol>
     </li>
     <li><b>Allow.</b>
       <ol type="a">
         <li>Open Gmail (the same account) and press F5 to reload it.</li>
-        <li>Open any email. On the right edge of Gmail there is a narrow column of icons; click the new add-on icon. (If you don't see the column, click the small arrow at the bottom right corner.)</li>
-        <li>The panel shows <b>Authorize access</b>: click it and choose your account.</li>
-        <li>Google shows "Google hasn't verified this app". That is expected: it is your own personal copy, not an app from a store. Click <b>Advanced</b>, then <b>Go to IMA Reply Tracking (unsafe)</b>.</li>
-        <li>Google lists what the add-on may do. If there are checkboxes, tick <b>Select all</b>. Press <b>Continue</b> or <b>Allow</b>. <a href="data.html#permissions">What each permission is for</a></li>
+        <li>Open any email. On the right edge of Gmail there is a narrow column of icons; click the new add-on icon. (If you don't see the column, click the small arrow at the bottom right corner.)
+          <figure class="shot"><img src="../img/s2-gmail-icon-en.png" alt="Gmail with an open email and the IMA Reply Tracking add-on icon highlighted on the right edge" loading="lazy"></figure>
+        </li>
+        <li>The panel shows <b>Authorize access</b>: click it and choose your account.
+          <figure class="shot panel"><img src="../img/s2-authorize-en.png" alt="Add-on side panel showing the Authorize access button" loading="lazy"></figure>
+        </li>
+        <li>Google shows "Google hasn't verified this app". That is expected: it is your own personal copy, not an app from a store. Click <b>Advanced</b>, then <b>Go to IMA Reply Tracking (unsafe)</b>.
+          <figure class="shot"><img src="../img/s2-unverified.png" alt="Google hasn't verified this app warning with Advanced and Go to IMA Reply Tracking (unsafe) highlighted" loading="lazy"></figure>
+        </li>
+        <li>Google lists what the add-on may do. If there are checkboxes, tick <b>Select all</b>. Press <b>Continue</b> or <b>Allow</b>. <a href="data.html#permissions">What each permission is for</a>
+          <figure class="shot"><img src="../img/s2-allow.png" alt="Google permissions screen for IMA Reply Tracking with Select all and Allow highlighted" loading="lazy"></figure>
+        </li>
       </ol>
     </li>
   </ol>
@@ -93,20 +123,36 @@
   <div class="note"><b>Privacy, read before you continue.</b> With a key, the text of the IMA's replies (and your own messages in those conversations) is sent to Google's Gemini. On Google's free tier, Google may use what is sent to improve its products. Replies can contain personal or medical details. If that is a problem for you, skip this step: everything else works, and you rate replies yourself. <a href="data.html#gemini">What Gemini receives</a></div>
   <ol>
     <li>Open <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener"><span class="ltr">aistudio.google.com/apikey</span></a> (or use the tab the installer opened). Sign in with any Google account; the same one is simplest.</li>
-    <li><b>Only the first time:</b> a "Welcome to Google AI Studio" page appears. Tick the box confirming you are over 18 (the second box, for emails, is up to you) and press <b>Continue</b>.</li>
-    <li>On the <b>API Keys</b> page, click <b>Create API key</b> at the top right.</li>
-    <li>A window "Create a new key" opens. Leave the name as it is. Under the project, keep what is selected (if the list is empty, choose to create a new project; any name is fine). Click <b>Create key</b>.</li>
-    <li>The new key appears in the list (only its last few characters are shown). Click the copy icon in its row; the whole key, a long code starting with <code>AIza</code>, is copied. Keep this tab open until you have pasted it (Step 4).</li>
+    <li><b>Only the first time:</b> a "Welcome to Google AI Studio" page appears. Tick the box confirming you are over 18 (the second box, for emails, is up to you) and press <b>Continue</b>.
+      <figure class="shot"><img src="../img/s3-aistudio-welcome.png" alt="Welcome to Google AI Studio screen with the age confirmation box and Continue button highlighted" loading="lazy"></figure>
+    </li>
+    <li>On the <b>API Keys</b> page, click <b>Create API key</b> at the top right.
+      <figure class="shot"><img src="../img/s3-aistudio-keys.png" alt="Google AI Studio API Keys page with the Create API key button highlighted" loading="lazy"></figure>
+    </li>
+    <li>A window "Create a new key" opens. Leave the name as it is. Under the project, keep what is selected (if the list is empty, choose to create a new project; any name is fine). Click <b>Create key</b>.
+      <figure class="shot"><img src="../img/s3-aistudio-create.png" alt="Create a new key dialog with the Create key button highlighted" loading="lazy"></figure>
+    </li>
+    <li>The new key appears in the list (only its last few characters are shown). Click the copy icon in its row; the whole key, a long code starting with <code>AIza</code>, is copied. Keep this tab open until you have pasted it (Step 4).
+      <figure class="shot"><img src="../img/s3-aistudio-copy.png" alt="API Keys list showing the new key and its copy icon highlighted" loading="lazy"></figure>
+    </li>
   </ol>
   <p class="muted">Do not share the key with anyone. If it leaks, delete it on the same page and create a new one.</p>
 
   <h2 id="first-run">Step 4: the welcome screens</h2>
   <p>Go back to Gmail and the add-on panel. The first time, it shows four short screens.</p>
   <ol>
-    <li><b class="ui" data-key="wel.title">Welcome</b>: choose the <b class="ui" data-key="wel.lang">Language</b> and type <b class="ui" data-key="wel.name">Your name, for the sign-off of emails</b>. Press <b class="ui" data-key="btn.continue">Continue</b>.</li>
-    <li><b class="ui" data-key="profile.header">About you (optional)</b>: career stage, field, workplace. Every question has "prefer not to say". Press <b class="ui" data-key="triage.save">Save and continue</b>, or <b class="ui" data-key="btn.skip2">Skip</b>. <a href="data.html#profile">Why we ask</a></li>
-    <li><b class="ui" data-key="wel.aiTitle">Gemini suggestions (optional)</b>: click in the field <b class="ui" data-key="settings.keyField">Gemini API key</b>, paste the key from Step 3 (Ctrl+V, or <span class="ltr">⌘</span>+V on a Mac), and press <b class="ui" data-key="btn.continue">Continue</b>. If you skipped Step 3, press <b class="ui" data-key="btn.skip2">Skip</b>.</li>
-    <li><b class="ui" data-key="wel.histTitle">Your history</b>: first install? Press <b class="ui" data-key="wel.fresh">This is my first time</b>. Used the add-on before? Press <b class="ui" data-key="wel.restore">Restore my history</b>.</li>
+    <li><b class="ui" data-key="wel.title">Welcome</b>: choose the <b class="ui" data-key="wel.lang">Language</b> and type <b class="ui" data-key="wel.name">Your name, for the sign-off of emails</b>. Press <b class="ui" data-key="btn.continue">Continue</b>.
+      <figure class="shot panel"><img src="../img/s4-welcome1-en.png" alt="Welcome screen 1 of 4 with the name field and Continue button highlighted" loading="lazy"></figure>
+    </li>
+    <li><b class="ui" data-key="profile.header">About you (optional)</b>: career stage, field, workplace. Every question has "prefer not to say". Press <b class="ui" data-key="triage.save">Save and continue</b>, or <b class="ui" data-key="btn.skip2">Skip</b>. <a href="data.html#profile">Why we ask</a>
+      <figure class="shot panel"><img src="../img/s4-welcome2-en.png" alt="Welcome screen 2 of 4 showing the About you questions with Skip and Save and continue highlighted" loading="lazy"></figure>
+    </li>
+    <li><b class="ui" data-key="wel.aiTitle">Gemini suggestions (optional)</b>: click in the field <b class="ui" data-key="settings.keyField">Gemini API key</b>, paste the key from Step 3 (Ctrl+V, or <span class="ltr">⌘</span>+V on a Mac), and press <b class="ui" data-key="btn.continue">Continue</b>. If you skipped Step 3, press <b class="ui" data-key="btn.skip2">Skip</b>.
+      <figure class="shot panel"><img src="../img/s4-welcome3-en.png" alt="Welcome screen 3 of 4 with the Gemini API key field and Continue button highlighted" loading="lazy"></figure>
+    </li>
+    <li><b class="ui" data-key="wel.histTitle">Your history</b>: first install? Press <b class="ui" data-key="wel.fresh">This is my first time</b>. Used the add-on before? Press <b class="ui" data-key="wel.restore">Restore my history</b>.
+      <figure class="shot panel"><img src="../img/s4-welcome4-en.png" alt="Welcome screen 4 of 4 with This is my first time highlighted" loading="lazy"></figure>
+    </li>
   </ol>
   <p><b>Done.</b> The add-on now checks your mailbox by itself (every two hours, and a full check once a day). Next: <a href="guide.html">Using it</a>.</p>
   <p class="muted">Adding or changing the Gemini key later: menu (⋮) → <b class="ui" data-key="menu.settings">Settings</b> → <b class="ui" data-key="set.keyBtn">Key</b> next to Gemini → paste into <b class="ui" data-key="settings.keyField">Gemini API key</b> → <b class="ui" data-key="btn.save">Save</b>.</p>
@@ -162,11 +208,18 @@
   <details id="what-it-does">
     <summary>What the installer does, and how to check it</summary>
     <p>The installer is three plain-text files that you or anyone can read. It writes only into one folder in your home directory (<code>.ima-reply-tracking</code>), installs nothing system-wide, never reads your email, and removes the Google sign-in at the end. Each file is checked against a published fingerprint before it runs.</p>
-    <p>The full list of claims, and a ready-made prompt for checking them with an AI assistant: <a href="https://github.com/amits-ds/ima-reply-tracking-addon/blob/main/install/WHAT_IT_DOES.md">What the installer does</a>. For the add-on itself: <a href="https://github.com/amits-ds/ima-reply-tracking-addon/blob/main/install/WHY_TRUST_US.md">Why trust us?</a></p>
+    <p>The full list of claims, and a ready-made prompt for checking them with an AI assistant: <a href="https://github.com/amits-ds/ima-reply-tracking-addon/blob/main/install/WHAT_IT_DOES.md">What the installer does</a>. For the add-on itself: <a href="trust.html">Why trust us?</a></p>
   </details>
 
-  <footer>This page sends no information anywhere and uses no cookies or trackers. Last updated: 25 November 2026.</footer>
+  <footer>This page sends no information anywhere and uses no cookies or trackers. Last updated: 26 November 2026.</footer>
 </main>
+<dialog id="lightbox" aria-label="Enlarged screenshot">
+  <div class="lb-head">
+    <span class="lb-cap"></span>
+    <button type="button" class="lb-close" aria-label="Close">Close</button>
+  </div>
+  <img src="" alt="">
+</dialog>
 <script>
 // A link to a folded section (the add-on's update notice links to #updates) opens it.
 (function () { var d = location.hash && document.getElementById(location.hash.slice(1)); if (d && d.tagName === 'DETAILS') d.open = true; })();
@@ -176,6 +229,27 @@ document.querySelectorAll('button[data-copy]').forEach(function (b) {
     navigator.clipboard.writeText(text).then(function () { b.textContent = b.dataset.done || 'Copied'; setTimeout(function () { b.textContent = label; }, 2000); });
   });
 });
+(function () {
+  var dlg = document.getElementById('lightbox');
+  if (!dlg || !dlg.showModal) return;
+  var lbImg = dlg.querySelector('img'), lbCap = dlg.querySelector('.lb-cap');
+  document.querySelectorAll('.shot img').forEach(function (img) {
+    img.title = 'Click to enlarge';
+    img.tabIndex = 0;
+    function open() {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      var fig = img.closest('figure');
+      var cap = fig && fig.querySelector('figcaption');
+      lbCap.textContent = cap ? cap.textContent : img.alt;
+      dlg.showModal();
+    }
+    img.addEventListener('click', open);
+    img.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+  });
+  dlg.querySelector('.lb-close').addEventListener('click', function () { dlg.close(); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+})();
 </script>
 </body>
 </html>

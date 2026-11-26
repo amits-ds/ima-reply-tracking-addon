@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why trust us?: IMA Reply Tracking</title>
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<main>
+  <div class="top">
+    <nav aria-label="Pages">
+      <a href="about.html">About</a>
+      <a href="data.html">Your data</a>
+      <a href="install.html">Install</a>
+      <a href="guide.html">Using it</a>
+      <a href="trust.html" aria-current="page">Why trust us?</a>
+    </nav>
+    <a class="lang" href="../he/trust.html" hreflang="he" lang="he">עברית</a>
+  </div>
+
+  <h1>Why trust us? Don't. Check.</h1>
+  <p class="lead">IMA Reply Tracking is a volunteer tool, not an app Google has reviewed. It asks for wide permissions (it reads your email), and you have no store listing or company behind it to rely on. So we do not ask you to take our word for anything. Below is every promise we make about what the add-on does in your account, each with the place in the code that keeps it. Give this page and the code to an AI assistant (<a href="#ai-check">prompt at the end</a>) or to a programmer you trust, and see for yourself whether what we say and what the code does are the same thing.</p>
+  <p class="muted">The installer, which runs once on your computer, has its own page: <a href="https://github.com/amits-ds/ima-reply-tracking-addon/blob/main/install/WHAT_IT_DOES.md" target="_blank" rel="noopener">What the installer does</a>.</p>
+
+  <h2 id="code">1. The code you are checking</h2>
+  <p>Two files run in your Google account. Both are public:</p>
+  <ul>
+    <li><code>Code.gs</code>: the add-on itself (the cards you see, what it keeps in your account). In your own Apps Script project.</li>
+    <li><code>Library.gs</code>: the logic (reading your mail, building records, every network call). Shared by the group and used by every copy.</li>
+  </ul>
+  <p>Get them from the <a href="https://github.com/amits-ds/ima-reply-tracking-addon/releases/latest" target="_blank" rel="noopener">latest release</a> (or <code>main</code> in the <a href="https://github.com/amits-ds/ima-reply-tracking-addon" target="_blank" rel="noopener">public repository</a>). <b>Which copy actually runs:</b> the library is used in "development mode", so the people who run the project can update it for everyone without a new install, and an update can reach you before it is published here. Every record you upload carries the library version it was made with (<code>libVersion</code>), and every public release has the library file of that version. To check the exact code running today, open <code>https://script.google.com/d/&lt;libraryId&gt;/edit</code> (the <code>libraryId</code> is in your <code>appsscript.json</code>); you have view access, and you can paste that copy instead. (Release 2's <code>Library.gs</code> still has an old comment near the top saying it must never be published; it predates the decision to publish it.)</p>
+  <p class="muted">The permissions are wider than what the code does: "connect to an external service" would allow any address, and "compose" would allow deleting drafts. The limits in claims 1 and 3 are kept by the code, so they hold for the code you checked.</p>
+
+  <h2 id="claims">2. Our claims</h2>
+
+  <h3 id="reads">What it reads</h3>
+  <ol>
+    <li><b>It cannot delete, archive, label or change your email, and never tries to.</b> Its permissions (<code>oauthScopes</code> in <code>appsscript.json</code>) are read-only for mail plus "compose" (drafts and sending). The code never calls any function that deletes, moves, labels, archives, stars or marks a message or a draft.</li>
+    <li><b>It looks for conversations with the IMA, not your whole mailbox.</b> Its own searches look for mail to or from <span class="ltr">ima.org.il</span> and the addresses in the group's Targets list (<code>unionQuery_</code>, <code>unionScanQuery_</code>, <code>isUnionAddress</code>, <code>findThreadsWithNewMessages</code>). Other searches run only when you type one yourself ("Find a conversation") or open the writing-style picker (your sent mail, to choose examples; <code>getStyleChoices</code>). Two more look-ups: the list of your drafts' conversation ids, only to ignore unsent drafts (<code>draftThreadIds_</code>), and a search of your sent mail by subject, to find a draft you created from the add-on and then sent in Gmail (<code>sentLike_</code>). The group's Targets list decides which addresses count as the IMA (<code>unionExtraAddrs_</code>).</li>
+  </ol>
+
+  <h3 id="leaves">What leaves your account, and to where</h3>
+  <ol start="3">
+    <li><b>Only three destinations.</b> Every network call is in <code>Library.gs</code> (<code>UrlFetchApp.fetch</code>; <code>Code.gs</code> has none): (a) the group's log gateway (<code>GATEWAY_URL</code>, through <code>gatewayCall_</code>); (b) GitHub, to see whether a newer release exists (<code>getLatestContainerVersionFromGitHub</code>; a second GitHub check, <code>getLatestLibraryVersionFromGitHub</code>, is switched off by <code>LIBRARY_UPDATES_AUTOMATIC</code>); (c) Google's Gemini API, only if you added your own key (<code>geminiRequest_</code>, <code>fetchOne_</code>). Email it sends goes through Gmail to the people you chose (claim 10).</li>
+    <li><b>A record has a fixed list of fields and never contains the text of an email.</b> Every record is built by <code>makeEvent</code> from <code>EVENT_FIELDS</code>: your address, the IMA addresses the inquiry went to, the topic you picked from the group's list, the kind of record, a value (your rating, or a status), the email's date, Gmail's conversation id, Gemini's suggested rating and its explanation (only if you use Gemini; the explanation is one sentence saying what the reply says, so it is a summary of the reply's content), your final rating, a record id, the email's Message-ID, the IMA sender's address, a SHA-256 fingerprint of the original email (not the email), a fingerprint of the rubric, and, for IMA replies, the authenticity evidence described in claim 5. No body text, no attachment, no subject line except as claim 5 says.</li>
+    <li><b>For IMA replies, it uploads the headers the IMA's mail server signed, not the body.</b> <code>authEvidenceFromRaw</code> copies the <code>DKIM-Signature</code> header and the headers it covers (usually From, Date, <b>Subject</b>, Message-ID; whatever the signature covers, which can include To and Cc), plus Gmail's own <code>Authentication-Results</code> header, so anyone can later check that the IMA really sent that reply. The body is not included.</li>
+    <li><b>Only conversations you chose.</b> A conversation enters the log only after you track it (the triage card, the "Track" button beside an email, or a message you sent from the add-on), or when you restore your own history (<code>saveTriagePage_</code>, <code>onConfirmTopic</code>, <code>onCtxTrack</code>, <code>onSendFinal</code>, <code>settleDrafts_</code>, <code>onRestoreHistory</code>). Besides those records it uploads only counts (how many IMA conversations it saw and how many you track: <code>buildCoverageHeartbeatEvent</code>) and, if you fill it, your optional profile (pick-lists only: <code>buildProfileEvent</code>).</li>
+    <li><b>Your identity.</b> Each call to the gateway carries Google's sign-in token for your account (<code>identityToken</code> in <code>Code.gs</code>), so the gateway knows the records are yours. It proves your email address; it is not a password and gives no access to your account.</li>
+    <li><b>Gemini gets email text, only with your own key.</b> With a key, the text of tracked conversations (your messages and the IMA's replies, written up to each reply) goes to Google's Gemini API for a suggested rating (<code>judgeReplies</code>, <code>compactThread_</code>), and, when you ask for a rewrite, the draft and up to five emails you chose as style examples (<code>refineWithGemini</code>, <code>styleSampleTexts_</code>). Also with a key: when the add-on shows you IMA conversations you have not tracked yet (the triage card, including the results of a search you typed), it sends Gemini the subject and your own first message in each (up to 1,500 characters) to suggest a topic and a one-line gist (<code>triageSuggestions_</code> → <code>suggestTriage</code>), before you decide anything. <code>measureThreadTokens</code> (counts tokens) is a developer tool the add-on never calls. The key is kept in your own project's settings (<code>getProp('GEMINI_API_KEY')</code>) and is never sent to the gateway. Without a key, no request is made.</li>
+    <li><b>Full original emails are uploaded only if you turn it on.</b> The "evidence upload" sends the complete original message, attachments included (<code>uploadEvidenceThread</code>), and only when all three hold: the group has switched the feature on, you agreed on its consent card, and the conversation is one you track (<code>evOptedIn_</code> and its callers in <code>Code.gs</code>). Once a conversation is uploaded, its new messages are uploaded automatically by the background job, without asking again (<code>evQueueNew_</code>); turning it off in Settings stops that. Your agreement (its version, language and a fingerprint of the text) is sent to the gateway (<code>postEvidenceConsent</code>). It is off for the group today.</li>
+  </ol>
+
+  <h3 id="auto">What it does on its own</h3>
+  <ol start="10">
+    <li><b>It sends email only when you press Send, plus one reminder to yourself.</b> Messages to the IMA go out only from the confirmation step you click (<code>onSendFinal</code> → <code>sendComposedEmail</code>, which calls <code>sendFollowup</code> for a follow-up), or you send a draft yourself in Gmail ("Open in Gmail" creates that draft in your mailbox: <code>onOpenInGmail</code>). A follow-up is also copied (Cc) to everyone else on the conversation's last message (<code>followupRecipients</code>); the confirmation card lists both To and Cc before you press Send (<code>followupRoute</code>, from release 3). The only automatic email is a weekly reminder from you to you, when items have waited a week, and you can switch it off (<code>maybeSendReminder_</code>, <code>sendReminder_</code>).</li>
+    <li><b>One background job.</b> One timer every two hours (<code>lightCheckTrigger</code>, installed by <code>maybeScan_</code>): it looks for new messages in tracked conversations, once a day scans for new IMA conversations, records an automatic "no reply" when the IMA has not answered 14 days after your last message (<code>autoSilence_</code>), and uploads records that are waiting. Switching the daily check off in Settings removes the timer, which stops all of these, uploads included (they then happen only when you open the add-on).</li>
+    <li><b>What it keeps is kept in your account.</b> The list of tracked conversations, records waiting to upload and your settings live in your own Apps Script project's storage (<code>PropertiesService</code>), which nobody else can read. Two exceptions: the library keeps the names of available Gemini models in its own per-user cache, and a conversation closed for 30 days is shrunk, its details read back from your own records in the group log when you open it (<code>hydrate_</code> → <code>fetchHistory</code>). Error messages go to Google's error log (<code>exceptionLogging</code> in <code>appsscript.json</code>).</li>
+    <li><b>What the group can change without a new install.</b> The group's settings (the Targets list, templates, topics, rubric and feature switches) are data the add-on downloads (<code>fetchConfig</code>, <code>useConfig</code>); they cannot add code (there is no <code>eval</code> or run-time code). The Targets list does widen what counts as the IMA, so it changes which conversations the add-on looks at (claim 2) and which messages count as replies. Code changes come through the library (section 1).</li>
+  </ol>
+
+  <h2 id="limits">3. What reading the code cannot prove</h2>
+  <p>The code decides what leaves your account. What happens after it arrives is on the group's servers, whose code is not in this repository: who can read the log, how long it is kept, what the daily summaries contain. For those, <a href="data.html">Your data</a> says what we do; that part rests on trust in the people who run the project, not on code you can read.</p>
+
+  <h2 id="ai-check">4. Ask an AI assistant</h2>
+  <p>Use an assistant that can read long files (the two files are about 390 KB together; Claude or Gemini handle that, some free tiers do not). Download <code>Code.gs</code>, <code>Library.gs</code>, and <code>appsscript.json</code> from the <a href="https://github.com/amits-ds/ima-reply-tracking-addon/releases/latest" target="_blank" rel="noopener">latest release</a>, attach them together with <a href="https://github.com/amits-ds/ima-reply-tracking-addon/blob/main/install/WHY_TRUST_US.md" target="_blank" rel="noopener">WHY_TRUST_US.md</a> (or paste this page), and paste:</p>
+  <div class="cmd prose" dir="ltr"><pre id="ai-prompt">You are reviewing a Gmail add-on for a skeptical user. Attached are its source files (`Code.gs`, `Library.gs`, `appsscript.json`) and a page, WHY_TRUST_US.md, with numbered claims about what it does. For EACH claim in section 2: say whether the code confirms it, contradicts it, or does not let you tell; name the functions and quote the lines you relied on. Then look beyond the claims: list every network call, every Gmail action that sends, changes or deletes anything, every place email content or the user's data leaves the account, and every timer, and say whether each is covered by a claim. Report anything the page does not mention, anything that looks hidden or obfuscated, and anything that could send data somewhere else. Be strict: "probably fine" is not an answer.</pre><button type="button" data-copy="ai-prompt">Copy</button></div>
+
+  <footer>This page sends no information anywhere and uses no cookies or trackers. Last updated: 26 November 2026.</footer>
+</main>
+<script>
+document.querySelectorAll('button[data-copy]').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var text = document.getElementById(b.dataset.copy).textContent, label = b.textContent;
+    navigator.clipboard.writeText(text).then(function () { b.textContent = b.dataset.done || 'Copied'; setTimeout(function () { b.textContent = label; }, 2000); });
+  });
+});
+</script>
+</body>
+</html>

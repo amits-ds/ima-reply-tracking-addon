@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>למה לסמוך עלינו?: מעקב תשובות הר"י</title>
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<main>
+  <div class="top">
+    <nav aria-label="עמודים">
+      <a href="about.html">על הפרויקט</a>
+      <a href="data.html">המידע שלכם</a>
+      <a href="install.html">התקנה</a>
+      <a href="guide.html">איך משתמשים</a>
+      <a href="trust.html" aria-current="page">למה לסמוך עלינו?</a>
+    </nav>
+    <a class="lang" href="../en/trust.html" hreflang="en" lang="en">English</a>
+  </div>
+
+  <h1>למה לסמוך עלינו? אל תסמכו. תבדקו.</h1>
+  <p class="lead">מעקב תשובות הר"י הוא כלי של מתנדבים, לא אפליקציה שגוגל בדקה. הוא מבקש הרשאות רחבות (הוא קורא את הדואר שלכם), ואין מאחוריו חנות אפליקציות או חברה שאפשר להישען עליהן. לכן אנחנו לא מבקשים שתאמינו לנו. בעמוד הזה מופיעה כל הבטחה שלנו לגבי מה שהתוסף עושה בחשבון שלכם, ולצד כל אחת המקום בקוד שמקיים אותה. תנו את העמוד ואת הקוד לעוזר בינה מלאכותית (<a href="#ai-check">ההנחיה בסוף</a>) או למתכנת/ת שאתם סומכים עליו/ה, ובדקו בעצמכם אם מה שאנחנו אומרים ומה שהקוד עושה הם אותו דבר.</p>
+  <p class="muted">למתקין, שרץ פעם אחת במחשב שלכם, יש עמוד משלו: <a href="https://github.com/amits-ds/ima-reply-tracking-addon/blob/main/install/WHAT_IT_DOES.he.md" target="_blank" rel="noopener">מה תוכנת ההתקנה עושה</a>.</p>
+
+  <h2 id="code">1. הקוד שאתם בודקים</h2>
+  <p>שני קבצים רצים בחשבון הגוגל שלכם, ושניהם פומביים:</p>
+  <ul>
+    <li><code class="ltr">Code.gs</code>: התוסף עצמו (הכרטיסים שאתם רואים, ומה שנשמר בחשבון שלכם). נמצא בפרויקט Apps Script שלכם.</li>
+    <li><code class="ltr">Library.gs</code>: הלוגיקה (קריאת הדואר, בניית הרישומים, כל פנייה לרשת). משותף לקבוצה ומשמש כל עותק.</li>
+  </ul>
+  <p>את שניהם אפשר להוריד מ<a href="https://github.com/amits-ds/ima-reply-tracking-addon/releases/latest" target="_blank" rel="noopener">הגרסה האחרונה</a> (או מ-<code class="ltr">main</code> ב<a href="https://github.com/amits-ds/ima-reply-tracking-addon" target="_blank" rel="noopener">מאגר הציבורי</a>). <b>איזה עותק באמת רץ:</b> הספרייה פועלת ב"מצב פיתוח", כך שמפעילי הפרויקט יכולים לעדכן אותה לכולם בלי התקנה חדשה, ועדכון יכול להגיע אליכם לפני שפורסם כאן. כל רישום שאתם מעלים נושא את גרסת הספרייה שיצרה אותו (<code class="ltr">libVersion</code>), וכל גרסה פומבית כוללת את קובץ הספרייה של אותה גרסה. כדי לבדוק את הקוד שרץ היום בדיוק, פתחו את <code class="ltr">https://script.google.com/d/&lt;libraryId&gt;/edit</code> (ה-<code class="ltr">libraryId</code> נמצא בקובץ <code class="ltr">appsscript.json</code> שלכם); יש לכם הרשאת צפייה, ואפשר להדביק את העותק הזה במקום. (בקובץ <code class="ltr">Library.gs</code> של גרסה 2 עדיין יש הערה ישנה בראשו, שאומרת שאסור לפרסם אותו; היא נכתבה לפני ההחלטה לפרסם אותו.)</p>
+  <p class="muted">ההרשאות רחבות ממה שהקוד עושה: "חיבור לשירות חיצוני" מאפשרת כל כתובת, ו"כתיבה" מאפשרת למחוק טיוטות. הגבולות שבטענות 1 ו-3 נשמרים על ידי הקוד, ולכן הם תקפים לקוד שבדקתם.</p>
+
+  <h2 id="claims">2. מה אנחנו טוענים</h2>
+
+  <h3 id="reads">מה התוסף קורא</h3>
+  <ol>
+    <li><b>הוא לא יכול למחוק, להעביר לארכיון, לתייג או לשנות את הדואר שלכם, ולא מנסה.</b> ההרשאות שלו (<code class="ltr">oauthScopes</code> בקובץ <code class="ltr">appsscript.json</code>) הן קריאה בלבד של הדואר, ועוד "כתיבה" (טיוטות ושליחה). הקוד אף פעם לא קורא לפונקציה שמוחקת, מעבירה, מתייגת, מעבירה לארכיון, מסמנת בכוכב או מסמנת כנקרא הודעה או טיוטה.</li>
+    <li><b>הוא מחפש התכתבויות עם הר"י, לא את כל תיבת הדואר.</b> החיפושים שלו מחפשים דואר אל <span class="ltr">ima.org.il</span> או ממנה, ואל הכתובות שברשימת Targets של הקבוצה או מהן (<code class="ltr">unionQuery_</code>, <code class="ltr">unionScanQuery_</code>, <code class="ltr">isUnionAddress</code>, <code class="ltr">findThreadsWithNewMessages</code>). חיפושים אחרים רצים רק כשאתם מקלידים חיפוש בעצמכם ("חיפוש התכתבות"), או כשאתם פותחים את בחירת סגנון הכתיבה (הדואר היוצא שלכם, כדי לבחור דוגמאות; <code class="ltr">getStyleChoices</code>). ועוד שתי בדיקות: רשימת מזהי ההתכתבויות של הטיוטות שלכם, רק כדי להתעלם מטיוטות שלא נשלחו (<code class="ltr">draftThreadIds_</code>), וחיפוש בדואר היוצא שלכם לפי נושא, כדי למצוא טיוטה שיצרתם מהתוסף ושלחתם ב-Gmail (<code class="ltr">sentLike_</code>). רשימת Targets של הקבוצה קובעת אילו כתובות נחשבות להר"י (<code class="ltr">unionExtraAddrs_</code>).</li>
+  </ol>
+
+  <h3 id="leaves">מה יוצא מהחשבון שלכם, ולאן</h3>
+  <ol start="3">
+    <li><b>רק שלושה יעדים.</b> כל הפניות לרשת נמצאות ב-<code class="ltr">Library.gs</code> (<code class="ltr">UrlFetchApp.fetch</code>; ב-<code class="ltr">Code.gs</code> אין אף אחת): (א) שער מאגר הנתונים של הקבוצה (<code class="ltr">GATEWAY_URL</code>, דרך <code class="ltr">gatewayCall_</code>); (ב) GitHub, כדי לבדוק אם יש גרסה חדשה (<code class="ltr">getLatestContainerVersionFromGitHub</code>; בדיקה שנייה ב-GitHub, <code class="ltr">getLatestLibraryVersionFromGitHub</code>, כבויה על ידי <code class="ltr">LIBRARY_UPDATES_AUTOMATIC</code>); (ג) ה-API של Gemini של גוגל, רק אם הוספתם מפתח משלכם (<code class="ltr">geminiRequest_</code>, <code class="ltr">fetchOne_</code>). מיילים שהתוסף שולח עוברים דרך Gmail לאנשים שבחרתם (טענה 10).</li>
+    <li><b>לרישום יש רשימת שדות קבועה, והוא אף פעם לא מכיל את הטקסט של מייל.</b> כל רישום נבנה ב-<code class="ltr">makeEvent</code> מתוך <code class="ltr">EVENT_FIELDS</code>: הכתובת שלכם, כתובות הר"י שאליהן נשלחה הפנייה, הנושא שבחרתם מהרשימה של הקבוצה, סוג הרישום, ערך (הדירוג שלכם, או מצב), תאריך המייל, מזהה ההתכתבות של Gmail, הדירוג ש-Gemini הציע וההסבר שלו (רק אם אתם משתמשים ב-Gemini; ההסבר הוא משפט אחד שאומר מה כתוב בתשובה, כלומר תקציר של תוכנה), הדירוג הסופי שלכם, מזהה רישום, ה-Message-ID של המייל, כתובת השולח/ת מהר"י, טביעת אצבע SHA-256 של המייל המקורי (לא המייל עצמו), טביעת אצבע של מחוון הדירוג, ובתשובות של הר"י גם ראיית האמינות שמתוארת בטענה 5. בלי גוף המייל, בלי קבצים מצורפים, ובלי שורת נושא, חוץ ממה שטענה 5 אומרת.</li>
+    <li><b>בתשובות של הר"י הוא מעלה את הכותרות ששרת הדואר של הר"י חתם עליהן, לא את גוף ההודעה.</b> <code class="ltr">authEvidenceFromRaw</code> מעתיק את הכותרת <code class="ltr">DKIM-Signature</code> ואת הכותרות שהיא מכסה (בדרך כלל From, Date, <b>Subject</b>, Message-ID; כל מה שהחתימה מכסה, וזה יכול לכלול גם To ו-Cc), ועוד את הכותרת <code class="ltr">Authentication-Results</code> של Gmail עצמה, כדי שכל אחד יוכל לבדוק אחר כך שהר"י באמת שלחה את התשובה. גוף ההודעה לא נכלל.</li>
+    <li><b>רק התכתבויות שבחרתם.</b> התכתבות נכנסת למאגר הנתונים רק אחרי שבחרתם לעקוב אחריה (כרטיס המיון, הכפתור "מעקב" ליד מייל, או הודעה ששלחתם מהתוסף), או כשאתם משחזרים את ההיסטוריה שלכם (<code class="ltr">saveTriagePage_</code>, <code class="ltr">onConfirmTopic</code>, <code class="ltr">onCtxTrack</code>, <code class="ltr">onSendFinal</code>, <code class="ltr">settleDrafts_</code>, <code class="ltr">onRestoreHistory</code>). מעבר לרישומים האלה עולים רק מספרים (כמה התכתבויות עם הר"י הוא ראה, ובכמה מהן אתם עוקבים: <code class="ltr">buildCoverageHeartbeatEvent</code>), ואם מילאתם, גם הפרופיל האופציונלי שלכם (בחירה מרשימות בלבד: <code class="ltr">buildProfileEvent</code>).</li>
+    <li><b>הזהות שלכם.</b> כל פנייה לשער נושאת את אסימון הכניסה של גוגל לחשבון שלכם (<code class="ltr">identityToken</code> ב-<code class="ltr">Code.gs</code>), כדי שהשער יידע שהרישומים שלכם. הוא מוכיח את כתובת המייל שלכם; הוא לא סיסמה ולא נותן גישה לחשבון.</li>
+    <li><b>Gemini מקבל טקסט של מיילים, רק עם מפתח משלכם.</b> עם מפתח, הטקסט של ההתכתבויות שאתם עוקבים אחריהן (ההודעות שלכם והתשובות של הר"י, עד כל תשובה) נשלח ל-API של Gemini של גוגל כדי לקבל הצעת דירוג (<code class="ltr">judgeReplies</code>, <code class="ltr">compactThread_</code>), וכשאתם מבקשים ניסוח מחדש, גם הטיוטה ועד חמישה מיילים שבחרתם כדוגמאות סגנון (<code class="ltr">refineWithGemini</code>, <code class="ltr">styleSampleTexts_</code>). גם עם מפתח: כשהתוסף מציג לכם התכתבויות עם הר"י שעוד לא עקבתם אחריהן (כרטיס המיון, כולל תוצאות של חיפוש שהקלדתם), הוא שולח ל-Gemini את הנושא ואת ההודעה הראשונה שלכם בכל אחת (עד 1,500 תווים) כדי להציע נושא ותיאור בשורה אחת (<code class="ltr">triageSuggestions_</code> ← <code class="ltr">suggestTriage</code>), לפני שהחלטתם משהו. <code class="ltr">measureThreadTokens</code> (ספירת טוקנים) הוא כלי פיתוח שהתוסף לא קורא לו. המפתח נשמר בהגדרות של הפרויקט שלכם (<code class="ltr">getProp('GEMINI_API_KEY')</code>) ואף פעם לא נשלח לשער. בלי מפתח, לא נשלחת שום בקשה.</li>
+    <li><b>מיילים מקוריים מלאים עולים רק אם הפעלתם זאת.</b> "העלאת הראיות" שולחת את ההודעה המקורית המלאה, כולל קבצים מצורפים (<code class="ltr">uploadEvidenceThread</code>), ורק כשמתקיימים שלושה תנאים: הקבוצה הפעילה את האפשרות, אתם הסכמתם בכרטיס ההסכמה שלה, וההתכתבות היא אחת שאתם עוקבים אחריה (<code class="ltr">evOptedIn_</code> והמקומות שקוראים לה ב-<code class="ltr">Code.gs</code>). אחרי שהתכתבות הועלתה, הודעות חדשות בה עולות אוטומטית במשימת הרקע, בלי לשאול שוב (<code class="ltr">evQueueNew_</code>); כיבוי האפשרות בהגדרות עוצר זאת. ההסכמה שלכם (הגרסה, השפה וטביעת אצבע של הנוסח) נשלחת לשער (<code class="ltr">postEvidenceConsent</code>). היום האפשרות כבויה לכל הקבוצה.</li>
+  </ol>
+
+  <h3 id="auto">מה הוא עושה לבד</h3>
+  <ol start="10">
+    <li><b>הוא שולח מייל רק כשאתם לוחצים "שליחה", ועוד תזכורת אחת לעצמכם.</b> הודעות להר"י יוצאות רק משלב האישור שאתם לוחצים עליו (<code class="ltr">onSendFinal</code> ← <code class="ltr">sendComposedEmail</code>, שקוראת ל-<code class="ltr">sendFollowup</code> בתזכורת לפנייה), או כשאתם שולחים טיוטה בעצמכם ב-Gmail ("פתיחה ב-Gmail" יוצרת את הטיוטה הזו בתיבת הדואר שלכם: <code class="ltr">onOpenInGmail</code>). תזכורת לפנייה נשלחת גם בהעתק (Cc) לכל מי שהיה בהודעה האחרונה בהתכתבות (<code class="ltr">followupRecipients</code>); כרטיס האישור מציג גם את הנמענים וגם את ההעתקים לפני שאתם לוחצים "שליחה" (<code class="ltr">followupRoute</code>, מגרסה 3). המייל האוטומטי היחיד הוא תזכורת שבועית מכם אליכם, כשדברים מחכים לכם שבוע, ואפשר לכבות אותה (<code class="ltr">maybeSendReminder_</code>, <code class="ltr">sendReminder_</code>).</li>
+    <li><b>משימת רקע אחת.</b> טיימר אחד כל שעתיים (<code class="ltr">lightCheckTrigger</code>, שמותקן על ידי <code class="ltr">maybeScan_</code>): הוא בודק אם יש הודעות חדשות בהתכתבויות שאתם עוקבים אחריהן, פעם ביום מחפש התכתבויות חדשות עם הר"י, רושם "אין תשובה" אוטומטית כשהר"י לא ענתה 14 יום אחרי ההודעה האחרונה שלכם (<code class="ltr">autoSilence_</code>), ומעלה רישומים שמחכים. כיבוי הבדיקה היומית בהגדרות מסיר את הטיימר, וזה עוצר את כל אלה, כולל ההעלאות (הן קורות אז רק כשאתם פותחים את התוסף).</li>
+    <li><b>מה שנשמר, נשמר בחשבון שלכם.</b> רשימת ההתכתבויות שאתם עוקבים אחריהן, רישומים שמחכים להעלאה וההגדרות שלכם נמצאים באחסון של פרויקט ה-Apps Script שלכם (<code class="ltr">PropertiesService</code>), ואף אחד אחר לא יכול לקרוא אותו. שני חריגים: הספרייה שומרת את שמות מודלי Gemini הזמינים במטמון משלה, לכל משתמש; והתכתבות שנסגרה לפני 30 יום מצטמצמת, והפרטים שלה נקראים בחזרה מהרישומים שלכם במאגר הנתונים כשאתם פותחים אותה (<code class="ltr">hydrate_</code> ← <code class="ltr">fetchHistory</code>). הודעות שגיאה נשלחות ליומן השגיאות של גוגל (<code class="ltr">exceptionLogging</code> בקובץ <code class="ltr">appsscript.json</code>).</li>
+    <li><b>מה הקבוצה יכולה לשנות בלי התקנה חדשה.</b> ההגדרות של הקבוצה (רשימת Targets, התבניות, הנושאים, מחוון הדירוג ומתגי אפשרויות) הן נתונים שהתוסף מוריד (<code class="ltr">fetchConfig</code>, <code class="ltr">useConfig</code>); הן לא יכולות להוסיף קוד (אין <code class="ltr">eval</code> ואין קוד שנבנה בזמן ריצה). רשימת Targets כן מרחיבה את מה שנחשב להר"י, ולכן היא משנה באילו התכתבויות התוסף מתבונן (טענה 2) ואילו הודעות נחשבות לתשובות. שינויי קוד מגיעים דרך הספרייה (סעיף 1).</li>
+  </ol>
+
+  <h2 id="limits">3. מה קריאת הקוד לא יכולה להוכיח</h2>
+  <p>הקוד קובע מה יוצא מהחשבון שלכם. מה שקורה אחרי שזה מגיע נמצא בשרתים של הקבוצה, שהקוד שלהם לא נמצא במאגר הזה: מי יכול לקרוא את מאגר הנתונים, כמה זמן הוא נשמר, ומה יש בסיכומים היומיים. על אלה, <a href="data.html">המידע שלכם</a> מסביר מה אנחנו עושים; החלק הזה נשען על אמון במפעילי הפרויקט, לא על קוד שאפשר לקרוא.</p>
+
+  <h2 id="ai-check">4. בקשו מעוזר בינה מלאכותית לבדוק</h2>
+  <p>השתמשו בעוזר שיכול לקרוא קבצים ארוכים (שני הקבצים יחד שוקלים כ-390KB; Claude או Gemini מתמודדים עם זה, חלק מהגרסאות החינמיות לא). הורידו את <code class="ltr">Code.gs</code>, <code class="ltr">Library.gs</code> ו-<code class="ltr">appsscript.json</code> מ<a href="https://github.com/amits-ds/ima-reply-tracking-addon/releases/latest" target="_blank" rel="noopener">הגרסה האחרונה</a>, צרפו אותם יחד עם <a href="https://github.com/amits-ds/ima-reply-tracking-addon/blob/main/install/WHY_TRUST_US.he.md" target="_blank" rel="noopener">WHY_TRUST_US.he.md</a> (או העתיקו את העמוד הזה), והדביקו את ההנחיה (באנגלית, כדי שתתאים לקוד; אפשר להוסיף בסוף "ענה בעברית"):</p>
+  <div class="cmd prose" dir="ltr"><pre id="ai-prompt">You are reviewing a Gmail add-on for a skeptical user. Attached are its source files (`Code.gs`, `Library.gs`, `appsscript.json`) and a page, WHY_TRUST_US, with numbered claims about what it does. For EACH claim in section 2: say whether the code confirms it, contradicts it, or does not let you tell; name the functions and quote the lines you relied on. Then look beyond the claims: list every network call, every Gmail action that sends, changes or deletes anything, every place email content or the user's data leaves the account, and every timer, and say whether each is covered by a claim. Report anything the page does not mention, anything that looks hidden or obfuscated, and anything that could send data somewhere else. Be strict: "probably fine" is not an answer.</pre><button type="button" data-copy="ai-prompt" data-done="הועתק">העתקה</button></div>
+
+  <footer>העמוד הזה לא שולח שום מידע ואין בו עוגיות או כלי מעקב. עודכן לאחרונה: 26 בנובמבר 2026.</footer>
+</main>
+<script>
+document.querySelectorAll('button[data-copy]').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var text = document.getElementById(b.dataset.copy).textContent, label = b.textContent;
+    navigator.clipboard.writeText(text).then(function () { b.textContent = b.dataset.done || 'Copied'; setTimeout(function () { b.textContent = label; }, 2000); });
+  });
+});
+</script>
+</body>
+</html>

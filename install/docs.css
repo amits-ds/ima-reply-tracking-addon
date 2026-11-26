@@ -81,4 +81,32 @@ footer { color: var(--muted); font-size: .9rem; margin-top: 32px; border-block-s
 .vids > p { grid-column: 1 / -1; }
 .cmd { margin: 6px 0 12px; }
 .cmd pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin: 0; white-space: pre-wrap; word-break: break-all; font-size: .85rem; text-align: left; }
+.cmd.prose pre { word-break: normal; overflow-wrap: break-word; }
 .cmd button { margin-top: 6px; font: inherit; font-size: .9rem; padding: 3px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; }
+
+/* step reference screenshots (inline, click to enlarge) */
+.shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px 14px; margin: 10px 0 14px; }
+.shot { margin: 10px 0 14px; }
+.shots .shot { margin: 0; min-width: 0; }
+.shot img {
+  display: block; max-width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--card); cursor: zoom-in; box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  transition: box-shadow .15s ease, transform .15s ease;
+}
+.shot img:hover { box-shadow: 0 4px 16px rgba(0,0,0,.14); }
+.shot.panel img { max-width: 310px; }
+.shot figcaption { font-size: .88rem; color: var(--muted); margin-top: 5px; }
+
+dialog#lightbox {
+  border: 1px solid var(--line); border-radius: 12px; padding: 12px; max-width: min(94vw, 1180px);
+  max-height: 92vh; background: var(--card); color: var(--text); box-shadow: 0 18px 60px rgba(0,0,0,.45);
+}
+dialog#lightbox::backdrop { background: rgba(15, 18, 26, .72); }
+dialog#lightbox .lb-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+dialog#lightbox .lb-cap { font-size: .95rem; color: var(--muted); }
+dialog#lightbox .lb-close {
+  font: inherit; font-size: .9rem; padding: 3px 12px; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--bg); color: var(--text); cursor: pointer;
+}
+dialog#lightbox img { display: block; max-width: 100%; max-height: calc(92vh - 70px); width: auto; height: auto; margin: 0 auto; border-radius: 8px; }
+@media print { .shot { page-break-inside: avoid; } dialog#lightbox { display: none; } }
